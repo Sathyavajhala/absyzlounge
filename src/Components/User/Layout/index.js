@@ -334,7 +334,7 @@ class App extends Component {
                     <div>
                         {this.props.windowWidth > 770 ?
                             <div style={{ width: '100%', position: 'fixed', top: 0, zIndex: 1, height: '9.5%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '18%' }}>Employee Engagement Trivia </p>
+                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '18%' }}> Absyz Lounge Trivia </p>
                             </div>
                             :
                             <div>
@@ -355,7 +355,7 @@ class App extends Component {
                                     </div>
                                 </AppBar>
                                 <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                    <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Employee Engagement Trivia </p>
+                                    <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Absyz Lounge Trivia </p>
                                 </div>
                             </div>
                         }
@@ -365,7 +365,7 @@ class App extends Component {
                     <div>
                         {this.props.windowWidth > 770 ?
                             <div style={{ width: '100%', height: '9.5%', position: 'fixed', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}>Employee Engagement Trivia Results</p>
+                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}>Absyz Lounge Trivia Results</p>
                             </div>
                             :
                             <div>
@@ -388,7 +388,7 @@ class App extends Component {
                                     </div>
                                 </AppBar>
                                 <div style={{ width: '100%', height: '100%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                    <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', }}>Employee Engagement Trivia Results</p>
+                                    <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', }}>Absyz Lounge Trivia Results</p>
                                 </div>
                             </div>
                         }
