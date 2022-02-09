@@ -62,10 +62,7 @@ class WeeklyZine extends Component {
                     </div>
                     :
                     <div>
-                        <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
 
-                            <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Weekly Zine </p>
-                        </div>
                         <div dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
                         </div>
                     </div>

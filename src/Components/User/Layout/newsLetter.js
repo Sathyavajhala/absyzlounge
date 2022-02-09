@@ -58,10 +58,7 @@ class NewsLetter extends Component {
     
                     :
                     <div >
-                        <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center',marginTop:'10%' }}>
-    
-                            <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>News Letters</p>
-                        </div>
+
                         <div  dangerouslySetInnerHTML={this.myNewsLettersHtmlContent()} style={{display:'inherit'}}>
                            
                         </div>
