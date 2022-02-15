@@ -184,7 +184,9 @@ export default function DataTable() {
         console.log('res',response,JSON.stringify(response.json()))
 
         if (response.status == 200) {
-          alert('Successfully question Added')
+          alert('Successfully question Added');
+          setShowValues(false);
+
         } else {
           alert('question is not updated please try after some time')
         }

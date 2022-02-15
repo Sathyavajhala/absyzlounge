@@ -660,17 +660,22 @@ export default class AllUsers extends Component {
                 <AlternateEmailIcon sx={{ marginTop: 2.5 }} />
                 <TextField required label=" Mail" style={{ left: 5 }} onChange={this.handleEmail} value={this.state.emailID} fullWidth place Holder="Enter Mail" name="mail" />
               </div>
-              <div style={{ display: 'flex', flexDirection: "row" }} >
+              {/* <div style={{ display: 'flex', flexDirection: "row" }} >
                 <DescriptionIcon sx={{ marginTop: 2.5 }} />
                 <TextField required type='number' label="MaxQuestions" style={{ left: 5 }} value={this.state.maxQuestions} fullWidth onChange={this.handleMaxQuestion} place Holder=" Maximum no of Questions" name="maxQuest" />
-              </div>
+              </div> */}
               <div style={{ display: 'flex', flexDirection: "row" }} >
                 <FilterNoneIcon sx={{ marginTop: 2.5 }} />
                 <TextField required label=" Designation" style={{ left: 5 }} onChange={this.handleRole} value={this.state.role} fullWidth place Holder="Enter Designation" name="role" />
               </div>
               <div style={{ display: 'flex', flexDirection: "row" }} >
                 <PhoneIcon sx={{ marginTop: 2.5 }} />
-                <TextField required label=" Phone" onChange={this.handlePhone} fullWidth style={{ left: 5 }} inputProps={{ maxLength: 10 }} InputProps={{ startAdornment: <InputAdornment position='start' >+91</InputAdornment> }} value={this.state.phoneNumber} place Holder="Enter Phone" name="phone" />
+                <TextField required label=" Phone"
+                                 type='number'
+                                 onInput = {(e) =>{
+                                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,10)
+                              }}
+                onChange={this.handlePhone} fullWidth style={{ left: 5 }} inputProps={{ maxLength: 10 }} InputProps={{ startAdornment: <InputAdornment position='start' >+91</InputAdornment> }} value={this.state.phoneNumber} place Holder="Enter Phone" name="phone" />
               </div>
               <div style={{ display: "flex", flexDirection: "row", paddingTop: "1.5%" }}>
                 <CalendarTodayIcon sx={{ marginTop: '3.5%', }} />
