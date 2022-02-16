@@ -532,8 +532,10 @@ export default class AllUsers extends Component {
 
     fetch( `${api}/employeeportal/allusers`, requestOptions).then(res => res.json()).then(res => {
       console.log(res.payload, 'this is main response Payload ')
+      const myPayload = res.payload;
+      myPayload.shift();
       res.payload.map(ele => { return ele['id'] = ele.userpk, ele['maxQuest'] = this.state.maxQuestions, ele['category'] = '' })
-      this.setState({ rowsSelectedData: res.payload, })
+      this.setState({ rowsSelectedData: myPayload })
       this.addRow(res)
     }).catch((error) => { console.log(error); this.setState({ error }) })
   }
