@@ -380,6 +380,7 @@ export default class AllUsers extends Component {
         .then(data => {
           this.fetchAllUsers();
           console.log(data.message,data.statusCode, "my  payload data")
+          this.handleBackdrop();
           // if(data.message)
         }
         );
@@ -624,7 +625,7 @@ export default class AllUsers extends Component {
           <Backdrop
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={this.state.backdrop}
-            transitionDuration={0}
+            // transitionDuration={0}
             onClick={this.handleBackdrop.bind(this)}
           >
             <CircularProgress color="inherit" />
