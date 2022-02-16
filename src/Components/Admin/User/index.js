@@ -184,7 +184,7 @@ export default class AllUsers extends Component {
           headerName: 'Date of Joining',
           // type: 'number',
           width: 160,
-          editable: true,
+          editable: false,
         },
         {
           field: 'status',
