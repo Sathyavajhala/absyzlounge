@@ -1,20 +1,14 @@
 import PropTypes from 'prop-types';
 import windowSize from 'react-window-size';
 import { Component } from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import { height, style } from '@mui/system';
-import AppBar from '@material-ui/core/AppBar';
 import API from '../../../Api/index.js'
+import parse from 'html-react-parser';
 const api = API.Api;
 
 var htmlPage = 'ABSYZ Monthly NewsLetters'
 
 class NewsLetter extends Component {
-    constructor(props) {
-        super(props)
-    }
+
 
     componentDidMount() {
         this.getNewsLetters();
@@ -32,12 +26,13 @@ class NewsLetter extends Component {
 
     myNewsLettersHtmlContent() {
         console.log(htmlPage, 'my html')
+
         return { __html: `${htmlPage}` }
     }
     render(html) {
         const myHtmlStyles={
-            width:200,
-            height:'90%',
+            width:300,
+            height:'100%',
             display:'flex',
             
         }
@@ -58,9 +53,13 @@ class NewsLetter extends Component {
     
                     :
                     <div >
-
-                        <div  dangerouslySetInnerHTML={this.myNewsLettersHtmlContent()} style={{display:'inherit'}}>
-                           
+                        <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center',marginTop:'10%' }}>
+    
+                            <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>News Letters</p>
+                        </div>
+                        
+                        <div style={myHtmlStyles} >
+                           {parse(htmlPage)}
                         </div>
                     </div>
                 }

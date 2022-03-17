@@ -1,22 +1,13 @@
-import formElement from './formElement.json';
-import { FaArrowRight } from "react-icons/fa";
-import Logo from "./myLogo.png"
+
 import Drawer from '@material-ui/core/Drawer';
-import NavbarCustom from '../../../navbar';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { PieChart } from 'react-minimal-pie-chart';
-import Divider from '@material-ui/core/Divider';
-import axios from 'axios';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import API from '../../../Api/index.js'
 import 'react-circular-progressbar/dist/styles.css';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import idea from '../idea.svg'
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
-import AdaptiveImage from 'react-adaptive-image';
 import List from '@material-ui/core/List';
 import Group1 from '../Group1.png'
 import Group3 from '../Group3.png'
@@ -25,58 +16,25 @@ import Group2 from '../Group2.png'
 import Background from '../background.png'
 import Alert from '@mui/material/Alert';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
-import PeopleIcon from '@material-ui/icons/People';
-import LayersIcon from '@material-ui/icons/Layers';
 import { makeStyles } from '@material-ui/core/styles';
-import { Navbar, Nav, Container } from 'react-bootstrap'
-import { BsThreeDotsVertical } from "react-icons/bs"
 import { Component } from 'react';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
-import Question1 from "../../../JsonData/question1.json"
-import Checkbox from '@material-ui/core/Checkbox';
-import DescriptionIcon from '@mui/icons-material/Description';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded'; import * as React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import windowSize from 'react-window-size';
-import CssBaseline from '@mui/material/CssBaseline';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from "@material-ui/core/Button"
-import Dimensions from "react"
-import myFont from "../../../App.css"
-import MediaQuery from 'react-responsive';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import myLogo from "../myLogo.png"
-import { set } from 'lodash';
 import WeeklyZine from './weeklyZine';
-import { width } from '@mui/system';
 import NewsLetter from './newsLetter';
 import CompanyNews from './CompanyNews';
-var engagement
+import "./styles.css";
 const api = API.Api;
-const buttons = [
-    <Button style={{ width: '100%' }} key="one">A Option</Button>,
-    <Button key="two">B OpTion </Button>,
-    <Button key="three">C</Button>,
-    <Button key="three">D</Button>,
-
-]
-const OptionKeys =
-    { 'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D' }
-
-const pie = [
-    { title: 'One', value: 8, color: '#1D7B84', label: '80%' },
-    { title: 'Two', value: 2, color: '#359DA7', label: '20%' },
-]
-
-const percentage = 70;
 class App extends Component {
     constructor(props) {
         super(props)
@@ -211,7 +169,7 @@ class App extends Component {
                             isLoaded: true,
                             question: result.payload
                         });
-                        console.log(this.state.question,"User question")
+                        console.log(this.state.question, "User question")
                     }
                 },
             ).catch((err) =>
@@ -244,7 +202,7 @@ class App extends Component {
                     }
                 });
         }
-        else {  
+        else {
             this.setState({
                 errormsg: true
             })
@@ -289,9 +247,13 @@ class App extends Component {
     handleNext() {
         console.log('this.state', this.state.question)
         this.setState({ activeDiv: '', option: false })
+        if(this.state.openAlert==true && this.state.answer!=null){
+            this.setState({openAlert:false})
+        }
         if (this.state.answer == null || this.state.answer == '') {
             this.setState({ openAlert: true, })
         }
+
         else {
             const requestOptions = {
                 method: 'POST',
@@ -328,19 +290,23 @@ class App extends Component {
     render() {
         console.log(this.state.engagementRatio, 'your payload result')
         const container = window !== undefined ? () => window().document.body : undefined;
+       
         return (
             <div >
                 {this.state.myQuestionView ?
                     <div>
                         {this.props.windowWidth > 770 ?
-                            <div style={{ width: '100%', position: 'fixed', top: 0, zIndex: 1, height: '9.5%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '18%' }}> Absyz Lounge Trivia </p>
+                            <div  
+                            style={{
+                                width: '100%', position: 'fixed', top: 0 , zIndex:1 , height : '9.5%', backgroundColor: '#fff',display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
+                            >
+                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft :'18%' } } >Employee Engagement Trivia </p>
                             </div>
                             :
                             <div>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    sx={{ height: '15%', alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row' }}
+                                    className= 'appBarSx'
                                 >
                                     <Toolbar variant="dense" sx={{ alignSelf: 'start' }} >
                                         <IconButton
@@ -354,8 +320,8 @@ class App extends Component {
                                         <img src={myLogo} alt="Absyz.logo" width="80" height="40" />
                                     </div>
                                 </AppBar>
-                                <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                    <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Absyz Lounge Trivia </p>
+                                <div  className=' engagementTriviaDiv' >
+                                    <p className= ' engagementTriviaDivText' >ABSYZ Lounge Trivia </p>
                                 </div>
                             </div>
                         }
@@ -364,14 +330,14 @@ class App extends Component {
                 {this.state.results ?
                     <div>
                         {this.props.windowWidth > 770 ?
-                            <div style={{ width: '100%', height: '9.5%', position: 'fixed', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}>Absyz Lounge Trivia Results</p>
+                            <div  className=' resultsMainDivDesktop' >
+                                <p className=' resultsMainDivDesktopText' >ABSYZ Lounge Trivia Results</p>
                             </div>
                             :
                             <div>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    sx={{ height: '17%', alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row' }}
+                                    className= 'appBarResultsMobileSx'
                                 >
                                     <Toolbar variant="dense" sx={{ alignSelf: 'start' }} >
                                         <IconButton
@@ -387,8 +353,8 @@ class App extends Component {
                                         <img src={myLogo} alt="Absyz.logo" width="80" height="40" />
                                     </div>
                                 </AppBar>
-                                <div style={{ width: '100%', height: '100%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
-                                    <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', }}>Absyz Lounge Trivia Results</p>
+                                <div className='resultsMainDivMobile' >
+                                    <p className= 'resultsMainDivMobileText' >ABSYZ Lounge Trivia Results</p>
                                 </div>
                             </div>
                         }
@@ -397,10 +363,10 @@ class App extends Component {
                 {this.props.windowWidth < 770 ?
                     <div>
                         {this.state.myQuestionView || this.state.results ? null :
-                            <div style={{ width: '100%',top:0,position:'fixed',zIndex:1000}}>
+                            <div style={{ width: '100%', top: 0, position: 'fixed', zIndex: 1000 }}>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    sx={{ alignContent: 'center' ,display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
+                                    className=' questionsAppBarSx'
                                 >
                                     <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
                                         <IconButton
@@ -428,7 +394,7 @@ class App extends Component {
                             }}
                             color='1D7B84' >
                             <div style={{ backgroundColor: '#1D7B84', height: '100%', }}  >
-                                <div className={classes.toolbarIcon} style={{ backgroundColor: '#283741', height: '10%', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
+                                <div className={classes.toolbarIcon} style={  { backgroundColor: '#283741', height: '10%', display: 'flex', justifySelf: 'center', justifyContent: 'center' }   }>
                                     <img src={myLogo} alt="Absyz.logo" width="80" height="40" style={{ alignSelf: 'center', display: 'flex' }} />
                                 </div>
                                 <List>
@@ -533,14 +499,14 @@ class App extends Component {
                     {this.state.newsLetters ? <NewsLetter /> : null}
                     {this.state.myCompanyNews ? <CompanyNews /> : null}
                     {this.state.alreadySubmitted ?
-                        <div
-                            className="position-absolute top-50 start-50 translate-middle  "
-                        >  already submitted {this.state.question.message} </div> : null}
+                        <div className="position-absolute top-50 start-50 translate-middle  " >  already submitted {this.state.question.message} </div> : null}
                     {this.state.myQuestionView ?
                         <div>
                             {this.props.windowWidth < 770 ?
                                 <Collapse in={this.state.openAlert}
-                                    sx={{ width: '70%', display: 'flex', alignSelf: 'center', marginLeft: '15%', marginTop: '5%' }}>
+                                    // className =  'collapseMobile'
+                                    style={{ width: '40%', display: 'flex', alignSelf: 'center', marginLeft: '40%', margiTop: '5%' }}
+                                    >
                                     <Alert
                                         variant='outlined'
                                         severity='error'
@@ -561,7 +527,8 @@ class App extends Component {
                                 </Collapse>
                                 :
                                 <Collapse in={this.state.openAlert}
-                                    sx={{ width: '40%', display: 'flex', alignSelf: 'center', marginLeft: '40%', marginTop: '5%' }}>
+                                style={{ width: '40%', display: 'flex', alignSelf: 'center', marginLeft: '40%', marginTop: '5%' }}
+                                      className = 'collapseDesktop' >
                                     <Alert
                                         variant='outlined'
                                         severity='error'
@@ -596,7 +563,7 @@ class App extends Component {
                                 <div
                                     style={{ display: 'flex', backgroundImage: `url(${Group2})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', justifyContent: 'center', flexDirection: 'column', width: '100%', paddingLeft: '12%' }}
                                     className="position-absolute top-50 start-50 translate-middle  " >
-                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 70, marginTop: '3%', fontWeight: 'bold', color: '#1D7B84', }} >LET'S BEGIN</p>
+                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 70, marginTop: '3%', fontWeight: 'bold', color: '#1D7B84',marginLeft:'30%' }} >LET'S BEGIN</p>
                                     <img src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'40%'} height={'15%'} />
                                     <Button variant='contained' style={{ width: '15%', backgroundColor: '#1D7B84', display: 'flex', marginTop: '15%', justifySelf: 'center', alignSelf: 'center', color: 'white', left: 25 }}
                                         onClick={this.startTest.bind(this)}
@@ -634,7 +601,7 @@ class App extends Component {
                                                                 backgroundColor: this.state.activeDiv === keyName ? '#1D7B84' : 'white'
                                                             }}>
                                                             <p style={{ border: '1px solid #D6EFF5', height: 25, width: 25, backgroundColor: this.state.activeDiv === keyName ? 'white' : 'transparent', borderRadius: 25, alignSelf: 'center', alignContent: 'center', alignItems: 'center', justifyContent: 'center', display: 'flex', justifySelf: 'center', marginLeft: '5%', marginTop: '1.5%' }}>{keyName}  </p>
-                                                            {this.state.question.Option[0][keyName] ? <p style={{ alignSelf: 'center', paddingTop: '1%', paddingLeft: '2%', color: this.state.activeDiv === keyName ? 'white' : 'black' }} >{this.state.question.Option[0][keyName]} </p> : <p style={{ alignSelf: 'center', paddingTop: '1%', paddingLeft: '2%' }} >None </p>}
+                                                    {this.state.question.Option[0][keyName] ? <p style={{ alignSelf: 'center', paddingTop: '1%', paddingLeft: '2%', color: this.state.activeDiv === keyName ? 'white' : 'black' }} >{this.state.question.Option[0][keyName]} </p> : <p style={{ alignSelf: 'center', paddingTop: '1%', paddingLeft: '2%' }} >None </p>}
                                                         </div>
                                                     )}
                                                 </div>

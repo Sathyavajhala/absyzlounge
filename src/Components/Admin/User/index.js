@@ -2,44 +2,27 @@ import { Container, Paper, Button, Dialog, DialogActions, DialogContentText, Dia
 import { DataGrid, } from "@material-ui/data-grid";
 import Snackbar from '@mui/material/Snackbar'
 import Add from "@material-ui/icons/Add"
-import ShareIcon from '@mui/icons-material/Share';
-import ClearIcon from '@mui/icons-material/Clear';
-import CategoryIcon from '@mui/icons-material/Category';
+
 import { Component } from "react";
-// import moment from "react-moment";
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import API from '../../../Api/index.js'
-// import DatePicker from "react-date-picker";
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
 import Backdrop from "@mui/material/Backdrop"
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import Route from "react-router-dom"
-import absyz from '../../../Utils/images/absyz.png';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent';
 import CloseIcon from '@material-ui/icons/Close'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import CloseButton from 'react-bootstrap/CloseButton'
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import DescriptionIcon from '@mui/icons-material/Description';
-import EditIcon from '@mui/icons-material/Edit';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import CircularProgress from "@mui/material/CircularProgress"
 const rows = [
@@ -114,11 +97,7 @@ export default class AllUsers extends Component {
         { field: 'total', headerName: 'Total', width: 120 },
         { field: 'submittedDate', headerName: 'Completed on', width: 165 },
         { field: 'updatedDate', headerName: 'Sent On', width: 130 },
-        // {
-        //   field: 'linkSharedBy', headerName: 'Sent by', width: 130, renderCell: () => {
-        //     return 'ADMIN'
-        //   }
-        // },
+      
       ],
       columns: [
         { field: 'id', headerName: 'ID', width: 95 },
@@ -185,13 +164,6 @@ export default class AllUsers extends Component {
           // type: 'number',
           width: 160,
           editable: false,
-        },
-        {
-          field: 'status',
-          headerName: 'Active',
-          width: 120,
-          editable: false
-
         },
         {
           field: 'phone',
@@ -266,12 +238,7 @@ export default class AllUsers extends Component {
     }
     fetch(`${api}/employeeportal/getresults`, requestOptions).then((res) => res.json())
       .then((res) => {
-        // res.payload.map(ele => { return ele['id'] = ele.testname })
-        // if (res.payload == undefined) {
-        //   console.log("true")
-        //   alert(" not yet answered")
-        //   this.setState({ notYetAnswered: true, myCandidateTemplate: false })
-        // }
+
         this.setState({ newPopupRows: res.payload });
 
         console.log('candidate results', this.state.newPopupRows)
@@ -535,8 +502,9 @@ export default class AllUsers extends Component {
       console.log(res.payload, 'this is main response Payload ')
       const myPayload = res.payload;
       myPayload.shift();
-      res.payload.map(ele => { return ele['id'] = ele.userpk, ele['maxQuest'] = this.state.maxQuestions, ele['category'] = '' })
+      myPayload.map(ele => { return ele['id'] = ele.userpk, ele['maxQuest'] = this.state.maxQuestions, ele['category'] = '' })
       this.setState({ rowsSelectedData: myPayload })
+      // thi.setState({})
       this.addRow(res)
     }).catch((error) => { console.log(error); this.setState({ error }) })
   }
@@ -558,6 +526,9 @@ export default class AllUsers extends Component {
 
   }
   render() {
+    var today = new Date();
+var date = today.getDate() +'/'+(today.getMonth()+1)+'/'+ today.getFullYear();
+console.log(date,"today date")
     return (
       <div>
         <Container>
@@ -582,7 +553,7 @@ export default class AllUsers extends Component {
              </IconButton> */}
             {/* {this.state.selectOrDelete ? <IconButton variant="contained" style={{backgroundColor:'white' }} onClick={() => this.setState({ showSelection: !this.state.showSelection, selectOrDelete: !this.state.selectOrDelete })} color="primary">
            <PlaylistAddCheckIcon/></IconButton> : <IconButton variant="contained" style={{ backgroundColor:'white'}} onClick={() => this.setState({showSelection: !this.state.showSelection, selectOrDelete: !this.state.selectOrDelete})} >         <ClearIcon/>  </IconButton>}
-            {this.state.selectOrDelete ? null: <IconButton variant="contained" style={{ backgroundColor:'white' }} onClick={() => this.uploadQuestions()}>   <ShareIcon  color="white"/>  </IconButton>}*/}
+            {this.state.selectOrDelete ? null: <IconButton variant="contained" style={{ backgroundColor:'white' }} onClick={() => this.uploadQuestions()}>   <ShareIcon  color="white"/>  </IconButton>} */}
             <IconButton style={{ fontSize: 20, backgroundColor: "white", display: "flex", alignSelf: "flex-end" }} onClick={() => this.showingAddRow()              } color="white">  <Add color='white' />  </IconButton>
           </div>
           <Paper component={Box} width={1} height={600} style={{ marginTop: '3%' }}>
@@ -595,6 +566,8 @@ export default class AllUsers extends Component {
               rows={this.state.rowsSelectedData}
               columns={this.state.columns}
               // apiRef={useGridApiRef()}
+              // resizable={true}
+              disableColumnResize={false}
               pageSize={15}
               editRowsModel={this.state.editRowsModel}
               onEditRowsModelChange={this.handleEditRowsModelChange}
@@ -647,7 +620,8 @@ export default class AllUsers extends Component {
             <DialogTitle>
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignSelf: "center", alignItems: "center", alignContent: "center" }}>
                 {/* <a href="https://absyz.com">   <img src={absyz} alt="Logo" style={{ width: 90, height: 50 }} />  </a> */}
-                <h4 style={{ paddingTop: "1%" }}>  New  Employee's Record</h4>
+                <h4 style={{ paddingTop: "1%" }}>
+                  New  Employee's Record</h4>
               </div>
             </DialogTitle>
             <DialogContent>
@@ -673,12 +647,12 @@ export default class AllUsers extends Component {
               </div>
               <div style={{ display: 'flex', flexDirection: "row" }} >
                 <PhoneIcon sx={{ marginTop: 2.5 }} />
-                <TextField required label=" Phone"
-                                 type='number'
-                                 onInput = {(e) =>{
-                                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,10)
-                              }}
-                onChange={this.handlePhone} fullWidth style={{ left: 5 }} inputProps={{ maxLength: 10 }} InputProps={{ startAdornment: <InputAdornment position='start' >+91</InputAdornment> }} value={this.state.phoneNumber} place Holder="Enter Phone" name="phone" />
+                <TextField required label=" Phone" onChange={this.handlePhone}
+                 type='number'
+                   onInput = {(e) =>{
+                    e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,10)
+                }}
+                fullWidth style={{ left: 5 }} inputProps={{ maxLength: 10 }} InputProps={{ startAdornment: <InputAdornment position='start' >+91</InputAdornment> }} value={this.state.phoneNumber} place Holder="Enter Phone" name="phone" />
               </div>
               <div style={{ display: "flex", flexDirection: "row", paddingTop: "1.5%" }}>
                 <CalendarTodayIcon sx={{ marginTop: '3.5%', }} />
@@ -687,9 +661,10 @@ export default class AllUsers extends Component {
                     <MobileDatePicker
                       label="Date of Joining"
                       sx={{ color: 'white' }}
+                      openTo={'year'}
                       onChange={this.handleDOB}
+                      minDate={new Date("02-29-2011")}
                       value={this.state.empDOJ}
-                      // inputFormat={(date) => moment(new Date()).format('MM-DD-YYYY')}
                       renderInput={(params) => <TextField {...params} />}
                     />
                   </LocalizationProvider>

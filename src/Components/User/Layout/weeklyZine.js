@@ -1,32 +1,11 @@
 import PropTypes from 'prop-types';
 import windowSize from 'react-window-size';
 import { Component } from 'react';
-import Card from '@mui/material/Card';
-import clsx from 'clsx';
-// import { useMemo } from 'react';
-import { Parser } from 'html-to-react';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import { height } from '@mui/system';
-import Container from '@material-ui/core/Container';
-import zine1 from "../zine1.png"
-import AppBar from '@material-ui/core/AppBar';
-import { makeStyles } from '@material-ui/core/styles';
-import ReactDOM from 'react-dom';
-import ReactHtml from 'raw-html-react';
-import InnerHTML from 'dangerously-set-html-content'
-// import renderHTML from 'react-render-html';
 import API from '../../../Api/index.js'
-const renderHTML = require('react-render-html');
-const ReactDOMServer = require('react-dom/server');
-const HtmlToReactParser = require('html-to-react').Parser;
+
 const api = API.Api;
 var htmlPage;
 class WeeklyZine extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         this.getWeeklyZine();
     }
@@ -44,7 +23,6 @@ class WeeklyZine extends Component {
     }
 
     render() {
-        // const container = window !== undefined ? () => window().document.body : undefined;
         console.log(this.props.windowWidth)
         return (
             <div  >
@@ -62,7 +40,10 @@ class WeeklyZine extends Component {
                     </div>
                     :
                     <div>
+                        <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
 
+                            <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Weekly Zine </p>
+                        </div>
                         <div dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
                         </div>
                     </div>

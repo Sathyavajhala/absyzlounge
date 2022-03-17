@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Backdrop from "@mui/material/Backdrop"
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import CircularProgress from "@mui/material/CircularProgress"
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import absyz from '../../../Utils/images/absyz.png';
-import Snackbar from '@material-ui/core/Snackbar';
 import { connect } from "react-redux";
 import { loginUser } from '../../../Actions/LoginAction'
 import { Redirect } from "react-router-dom";
@@ -71,12 +60,13 @@ function SignIn(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const classes = useStyles();
+  console.log(props,"props")
 
   const handleSubmit = (event) => {
 
     //console.log('vent.target.value',event)
     setBackDrop(true)
-    event.preventDefault()
+    // event.preventDefault()
 
     if (username=="admin@absyz.com" && password== 'admin' ) {
       console.log('hitSuccess')
