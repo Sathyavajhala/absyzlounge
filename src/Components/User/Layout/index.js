@@ -306,7 +306,8 @@ class App extends Component {
                             <div>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    className= 'appBarSx'
+                                    // className= 'appBarSx'
+                                    sx={{height: '15%' , alignContent : 'center', display: 'flex', alignItems: 'center', flexDirection : 'row'}}
                                 >
                                     <Toolbar variant="dense" sx={{ alignSelf: 'start' }} >
                                         <IconButton
@@ -320,8 +321,12 @@ class App extends Component {
                                         <img src={myLogo} alt="Absyz.logo" width="80" height="40" />
                                     </div>
                                 </AppBar>
-                                <div  className=' engagementTriviaDiv' >
-                                    <p className= ' engagementTriviaDivText' >ABSYZ Lounge Trivia </p>
+                                <div 
+                                style={{ width: '100%', height : 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center'}}
+                                 >
+                                    <p
+                                    style={{fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}
+                                    >ABSYZ Lounge Trivia </p>
                                 </div>
                             </div>
                         }
@@ -330,14 +335,19 @@ class App extends Component {
                 {this.state.results ?
                     <div>
                         {this.props.windowWidth > 770 ?
-                            <div  className=' resultsMainDivDesktop' >
-                                <p className=' resultsMainDivDesktopText' >ABSYZ Lounge Trivia Results</p>
+                            <div 
+                            style={{width: '100%', height: '9.5%', position: 'fixed', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
+                             >
+                                <p 
+                                style={{fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%'}}
+                                >ABSYZ Lounge Trivia Results</p>
                             </div>
                             :
                             <div>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    className= 'appBarResultsMobileSx'
+                                    sx={{height: '17%', alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row' }}
+                                    // className= 'appBarResultsMobileSx'
                                 >
                                     <Toolbar variant="dense" sx={{ alignSelf: 'start' }} >
                                         <IconButton
@@ -353,8 +363,13 @@ class App extends Component {
                                         <img src={myLogo} alt="Absyz.logo" width="80" height="40" />
                                     </div>
                                 </AppBar>
-                                <div className='resultsMainDivMobile' >
-                                    <p className= 'resultsMainDivMobileText' >ABSYZ Lounge Trivia Results</p>
+                                <div
+                                style={{width: '100%', height: '100%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
+                                
+                                className='resultsMainDivMobile' >
+                                    <p 
+                                    style={{fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex',}}
+                                    >ABSYZ Lounge Trivia Results</p>
                                 </div>
                             </div>
                         }
@@ -366,7 +381,8 @@ class App extends Component {
                             <div style={{ width: '100%', top: 0, position: 'fixed', zIndex: 1000 }}>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    className=' questionsAppBarSx'
+                                    sx={{ alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%'}}
+                                    // className=' questionsAppBarSx'
                                 >
                                     <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
                                         <IconButton
