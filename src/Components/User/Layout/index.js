@@ -33,7 +33,7 @@ import myLogo from "../myLogo.png"
 import WeeklyZine from './weeklyZine';
 import NewsLetter from './newsLetter';
 import CompanyNews from './CompanyNews';
-import "./styles.css";
+// import "./styles.css";
 const api = API.Api;
 class App extends Component {
     constructor(props) {
