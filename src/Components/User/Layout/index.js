@@ -222,19 +222,24 @@ class App extends Component {
 
     startTest() {
         console.log(this.state.alreadySubmitted, 'already submitted')
-        this.setState({begin:true})
-    
+        if (this.state.begin) {
+            this.setState({ results: false, myQuestionView: true, begin: false })
+        } else if (this.state.myQuestionView) {
+            this.setState({ begin: false })
+        }
+        else if (this.state.results) {
+            this.setState({ myQuestionView: false, begin: false, })
+        }
     }
 
     trivia() {
-        
-        this.setState({ weeklyZine: false, newsLetters: false, myCompanyNews: false, mobiledrawer: false,isLoading:true });
+        this.setState({ weeklyZine: false, newsLetters: false, myCompanyNews: false, mobiledrawer: false });
         this.componentDidMount()
         if (this.state.results) {
             this.setState({ begin: false, results: true })
         }
         else {
-            this.startTest();
+            this.setState({begin:true})
         }
 
 
@@ -307,22 +312,20 @@ class App extends Component {
                             </div>
                             :
                             <div>
-                                <AppBar position="static"
+                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    // className= 'appBarSx'
-                                    sx={{ height: '15%', alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row' }}
+                                    sx={{ alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
+                                // className=' questionsAppBarSx'
                                 >
-                                    <Toolbar variant="dense" sx={{ alignSelf: 'start' }} >
+                                    <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
                                         <IconButton
                                             onClick={this.handleDrawer}
                                             edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                                             <MenuIcon style={{ color: 'white' }} />
                                         </IconButton>
                                     </Toolbar>
-                                    <div
-                                        className='justify-content-center'>
-                                        <img src={myLogo} alt="Absyz.logo" width="80" height="40" />
-                                    </div>
+                                    <img src={myLogo} alt="Absyz.logo" width="80" height="40" style={{ alignSelf: 'center', marginBottom: '2%' }} />
+
                                 </AppBar>
                                 <div
                                     style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
@@ -349,22 +352,18 @@ class App extends Component {
                             <div>
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
-                                    sx={{ height: '17%', alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row' }}
-                                // className= 'appBarResultsMobileSx'
+                                    sx={{ alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
+                                // className=' questionsAppBarSx'
                                 >
-                                    <Toolbar variant="dense" sx={{ alignSelf: 'start' }} >
+                                    <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
                                         <IconButton
                                             onClick={this.handleDrawer}
                                             edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                                             <MenuIcon style={{ color: 'white' }} />
                                         </IconButton>
                                     </Toolbar>
-                                    <div
-                                        className='justify-content-center'
-                                        style={{ width: '80%' }}
-                                    >
-                                        <img src={myLogo} alt="Absyz.logo" width="80" height="40" />
-                                    </div>
+                                    <img src={myLogo} alt="Absyz.logo" width="80" height="40" style={{ alignSelf: 'center', marginBottom: '2%' }} />
+
                                 </AppBar>
                                 <div
                                     style={{ width: '100%', height: '100%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
@@ -523,8 +522,7 @@ class App extends Component {
                         <div>
                             {this.props.windowWidth < 770 ?
                                 <Collapse in={this.state.openAlert}
-                                    // className =  'collapseMobile'
-                                    style={{ width: '40%', display: 'flex', alignSelf: 'center', marginLeft: '40%', margiTop: '5%' }}
+                                    style={{ width: '80%', display: 'flex', alignSelf: 'center', marginTop: '5%',marginLeft:'10%' }}
                                 >
                                     <Alert
                                         variant='outlined'
@@ -574,7 +572,7 @@ class App extends Component {
 
                                 <div >
 
-                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 40, fontWeight: 'bold', color: '#1D7B84', paddingTop: '20%' }} >LET'S BEGIN</p>
+                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 40, fontWeight: 'bold', color: '#1D7B84', paddingTop: '20%',textAlign:'center' }} >LET'S BEGIN</p>
                                     <img src={Background} style={{ alignSelf: 'center', }} width={'100%'} height={'100%'} />
                                     <img className="position-absolute top-50 start-50 translate-middle  " src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'85%'} height={'25%'} />
                                     <Button variant='contained' style={{ width: '80%', position: 'absolute', backgroundColor: '#1D7B84', display: 'flex', color: 'white', bottom: '8%', left: '10%' }}
@@ -699,7 +697,7 @@ class App extends Component {
                                     }}
                                 >
                                     <img src={Group3} style={{ alignSelf: 'center', marginRight: '1%', marginTop: '3%' }} width={'70%'} height={'70%'} />
-                                    <span style={{ fontFamily: 'Source Sans Pro', marginTop: '-1%', fontSize: 25, }}> Response Submitted, Thanks. </span>
+                                    <span style={{ fontFamily: 'Source Sans Pro', marginTop: '-1%', fontSize: 25, textAlign:'center'}}> Response Submitted, Thanks. </span>
                                     <PieChart
                                         labelStyle={{
                                             fontSize: "10px",
@@ -725,14 +723,14 @@ class App extends Component {
                                             <div
                                                 className='justify-content-center'
                                                 style={{ display: 'flex', flexDirection: 'row', width: '99%' }}>
-                                                <span style={{ height: 15, width: 15, backgroundColor: 'black', borderRadius: 10, marginTop: '3.5%', marginLeft: '5.39%', }} ></span>
+                                                <span style={{ height: 15, width: 15, backgroundColor: 'black', borderRadius: 10, marginTop: '3.5%', marginLeft: '3%', }} ></span>
                                                 <span style={{ fontFamily: 'Source Sans Pro', fontSize: 30, width: '70%', bottom: 20, color: '#33494E', alignSelf: 'flex-end', marginLeft: '3%' }}>Total questions</span>
                                                 <span style={{ fontFamily: 'Source Sans Pro', fontSize: 30, bottom: 20, color: '#33494E', alignSelf: 'flex-end', }}> {this.state.totalQuestions} </span>
                                             </div>
                                             <div style={{ display: 'flex', flexDirection: 'row', }}
                                                 className='justify-content-center'>
                                                 <span style={{ height: 15, width: 15, backgroundColor: '#1D7B84', borderRadius: 10, marginTop: '3.5%', marginLeft: '1%' }} ></span>
-                                                <span style={{ fontFamily: 'Source Sans Pro', fontSize: 30, width: '70%', bottom: 20, color: '#33494E', alignSelf: 'flex-end', marginLeft: '2.5%' }}>Right answers</span>
+                                                <span style={{ fontFamily: 'Source Sans Pro', fontSize: 30, width: '70%', bottom: 20, color: '#33494E', alignSelf: 'flex-end', marginLeft: '3%' }}>Right answers</span>
                                                 <span style={{ fontFamily: 'Source Sans Pro', fontSize: 30, bottom: 20, color: '#33494E', alignSelf: 'flex-end', }}> {this.state.correctlyAnswered} </span>
                                             </div>
                                             <div style={{ display: 'flex', flexDirection: 'row' }}

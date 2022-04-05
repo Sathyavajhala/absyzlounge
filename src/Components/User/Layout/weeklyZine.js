@@ -44,8 +44,18 @@ class WeeklyZine extends Component {
                             <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}>Weekly Zine  </p>
                         </div>
                         <div style={{width: '90%', display: 'flex', justifyContent: 'center', marginLeft: '10%', alignSelf: 'center', paddingTop: '5%' }}>
-                            <div dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
+                          
+                        {this.state.isLoading ? 
+                             <Backdrop
+                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                             open={this.state.isLoading}
+                           >
+                             <CircularProgress color="inherit" />
+                           </Backdrop> 
+                        :
+                            <div  dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
                             </div>
+                           }
                         </div>
 
                    
