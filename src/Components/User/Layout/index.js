@@ -22,6 +22,8 @@ import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded'; import * as React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import windowSize from 'react-window-size';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -63,6 +65,7 @@ class App extends Component {
             results: false,
             option4: false,
             userProfile: "",
+            isLoading: false,
 
             drawer: false,
             mobiledrawer: false,
@@ -82,7 +85,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-
         console.log(this.props, "this is my props data main")
         this.fetchData()
         this.engagementratio()
@@ -163,7 +165,7 @@ class App extends Component {
                     } else if (result.payload == "all questions answered successfully") {
                         console.log('here')
                         this.engagementratio();
-                        this.setState({ results: true, question: result, myQuestionView: false, begin: false })
+                        this.setState({ results: true, question: result, myQuestionView: false, begin: false, })
                     }
                     else {
                         result.payload.Option[0].d = result.payload.Option[0].d ? result.payload.Option[0].d : 'None'
@@ -220,24 +222,22 @@ class App extends Component {
 
     startTest() {
         console.log(this.state.alreadySubmitted, 'already submitted')
-        if (this.state.begin) {
-            this.setState({ results: false, myQuestionView: true, begin: false })
-        } else if (this.state.myQuestionView) {
-            this.setState({ begin: false })
-        }
-        else if (this.state.results) {
-            this.setState({ myQuestionView: false, begin: false, })
-        }
+        this.setState({begin:true})
+    
     }
 
     trivia() {
-        this.setState({ weeklyZine: false, newsLetters: false, myCompanyNews: false, mobiledrawer: false });
+        
+        this.setState({ weeklyZine: false, newsLetters: false, myCompanyNews: false, mobiledrawer: false,isLoading:true });
         this.componentDidMount()
         if (this.state.results) {
             this.setState({ begin: false, results: true })
-        } else {
-            this.setState({ begin: true, })
         }
+        else {
+            this.startTest();
+        }
+
+
     }
     newsLetter() {
         this.setState({ newsLetters: true, mobiledrawer: false, weeklyZine: false, myQuestionView: false, begin: false, results: false, myCompanyNews: false })
@@ -570,7 +570,10 @@ class App extends Component {
                     {this.state.begin ?
                         <div>
                             {this.props.windowWidth < 770 ?
+
+
                                 <div >
+
                                     <p style={{ fontFamily: 'Source Sans Pro', fontSize: 40, fontWeight: 'bold', color: '#1D7B84', paddingTop: '20%' }} >LET'S BEGIN</p>
                                     <img src={Background} style={{ alignSelf: 'center', }} width={'100%'} height={'100%'} />
                                     <img className="position-absolute top-50 start-50 translate-middle  " src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'85%'} height={'25%'} />
@@ -579,14 +582,25 @@ class App extends Component {
                                     >   Start</Button>
                                 </div>
                                 :
-                                <div
-                                    style={{ display: 'flex', backgroundImage: `url(${Group2})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', justifyContent: 'center', flexDirection: 'column', width: '100%', paddingLeft: '12%' }}
-                                    className="position-absolute top-50 start-50 translate-middle  " >
-                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 70, marginTop: '3%', fontWeight: 'bold', color: '#1D7B84', marginLeft: '30%' }} >LET'S BEGIN</p>
-                                    <img src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'40%'} height={'15%'} />
-                                    <Button variant='contained' style={{ width: '15%', backgroundColor: '#1D7B84', display: 'flex', marginTop: '15%', justifySelf: 'center', alignSelf: 'center', color: 'white', left: 25 }}
-                                        onClick={this.startTest.bind(this)}
-                                    >   Start</Button>
+                                <div>
+                                    {this.state.isLoading ? <div>
+                                        <Backdrop
+                                            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                            open={this.state.isLoading}
+                                        >
+                                            <CircularProgress color="inherit" />
+                                        </Backdrop>
+                                    </div> : null}
+                                    <div
+                                        style={{ display: 'flex', backgroundImage: `url(${Group2})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', justifyContent: 'center', flexDirection: 'column', width: '100%', paddingLeft: '12%' }}
+                                        className="position-absolute top-50 start-50 translate-middle  " >
+
+                                        <p style={{ fontFamily: 'Source Sans Pro', fontSize: 70, marginTop: '3%', fontWeight: 'bold', color: '#1D7B84', marginLeft: '30%' }} >LET'S BEGIN</p>
+                                        <img src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'40%'} height={'15%'} />
+                                        <Button variant='contained' style={{ width: '15%', backgroundColor: '#1D7B84', display: 'flex', marginTop: '15%', justifySelf: 'center', alignSelf: 'center', color: 'white', left: 25 }}
+                                            onClick={this.startTest.bind(this)}
+                                        >   Start</Button>
+                                    </div>
                                 </div>
                             }
                         </div>

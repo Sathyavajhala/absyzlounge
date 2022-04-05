@@ -194,43 +194,6 @@ export default class AllUsers extends Component {
           editable: 'true'
         },
 
-        // {
-        //   field: 'Edit',
-        //   headerName: 'Update',
-        //   width: 140,
-        //   disableClickEventBubbling: true,
-        //   renderCell: (params) => {
-
-        //     return <Button  color="primary"
-        //       size="small">
-        //       <p>Edit</p>
-        //     </Button>;
-        //   }
-        // },
-        // {
-        //   field: 'action',
-        //   headerName: 'Action',
-        //   width: 120,
-        //   disableClickEventBubbling: true,
-        //   renderCell: (params) => {
-        //     const myId = params.row
-
-        //     const onClick = (row) => {
-        //       console.log(row.target, "rowww")
-        //       const rows = [...this.state.data];
-        //       const index = this.state.data.findIndex((item) => item.id === this.state.currentRow.id)
-        //       console.log(index, "my index")
-        //       rows.splice(index, 1)
-        //       this.setState({ data: rows });
-        //     };
-        //     return <Button id={this.state.currentRow.id} onClick={onClick} value={myId} color="black"
-        //       size="small"
-        //       aria-label="delete" >
-        //       <DeleteIcon fontSize="small" />
-        //     </Button>;
-        //   }
-        // },
-
       ]
 
     }
