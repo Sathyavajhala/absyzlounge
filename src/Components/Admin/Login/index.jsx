@@ -123,7 +123,7 @@ function SignIn(props) {
         <Box sx={{width:'99%', }}>
           <Card variant="outlined" sx={{marginTop:"5%",borderRadius:7}} >
             <CardContent> 
-            <p style={{fontFamily:'Source Sans Pro',fontSize:25,fontWeight:500,color:'#283741',}}> ADMIN LOGIN </p>
+            <p style={{fontFamily:'Source Sans Pro',fontSize:25,fontWeight:500,color:'#283741',textAlign:'center'}}> ADMIN LOGIN </p>
 
               <div style={{display:'flex',flexDirection:"row",paddingTop:30}}>
 

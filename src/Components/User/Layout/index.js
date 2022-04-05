@@ -83,7 +83,7 @@ class App extends Component {
 
     componentDidMount() {
 
-        console.log(this.props, this.props.match.params.name)
+        console.log(this.props, "this is my props data main")
         this.fetchData()
         this.engagementratio()
         console.log(this.state.question, "fetched data")
@@ -740,7 +740,7 @@ class App extends Component {
                                 >
                                     <img src={Group3} style={{ alignSelf: 'flex-end', marginRight: '1%', marginTop: '10%' }} width={'25%'} height={'40%'} />
                                     <div style={{ marginRight: '10%', marginTop: '-5%', height: '15%' }}>
-                                        <span style={{ fontFamily: 'Source Sans Pro', fontSize: 25, marginRight: '5%' }}> Response Submitted, Thanks. </span>
+                                        <span style={{ fontFamily: 'Source Sans Pro', fontSize: 25, marginLeft: '25%' }}> Response Submitted, Thanks. </span>
                                         <PieChart
                                             labelPosition={50}
                                             labelStyle={{

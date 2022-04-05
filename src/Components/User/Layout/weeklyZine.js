@@ -2,12 +2,21 @@ import PropTypes from 'prop-types';
 import windowSize from 'react-window-size';
 import { Component } from 'react';
 import API from '../../../Api/index.js'
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 const api = API.Api;
-var htmlPage;
+var htmlPage = 'Loading..! Weekly Zine';
 class WeeklyZine extends Component {
+    constructor(){
+        super()
+        this.state={
+            isLoading:true
+        }
+    }
     componentDidMount() {
         this.getWeeklyZine();
+        // this.setState({isLoading:true})
+
     }
     getWeeklyZine() {
         const requestOptions = {
@@ -16,7 +25,10 @@ class WeeklyZine extends Component {
         }
         fetch(`${api}/employeeportal/getMailChimpHtml`, requestOptions)
             .then((res) => res.json())
-            .then((res) => htmlPage = res.weeklyZineHtmlData)
+            .then((res) => { this.setState({isLoading:false});
+            htmlPage = res.weeklyZineHtmlData
+            
+            })
     }
     myWeeklyZineHtmlContent() {
         return { __html: `${htmlPage}` }
@@ -44,8 +56,19 @@ class WeeklyZine extends Component {
 
                             <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Weekly Zine </p>
                         </div>
-                        <div dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
-                        </div>
+
+                        {this.state.isLoading ? 
+                             <Backdrop
+                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                             open={this.state.isLoading}
+                           >
+                             <CircularProgress color="inherit" />
+                           </Backdrop> 
+                        :
+                            <div  dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
+                            </div>
+                           }
+                       
                     </div>
                 }
             </div>

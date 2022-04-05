@@ -146,7 +146,7 @@ export default function Layout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography style={{ alignSelf: 'center', color: 'black', fontFamily: 'Source Sans Pro', fontWeight: '500', fontSize: 25 }} component="h1" variant="h6" noWrap className={classes.title}>
+          <Typography style={{ alignSelf: 'center',textAlign:'center', color: 'black', fontFamily: 'Source Sans Pro', fontWeight: '500', fontSize: 25 }} component="h1" variant="h6" noWrap className={classes.title}>
             Admin
           </Typography>
 
