@@ -27,7 +27,7 @@ class CompanyNews extends Component {
                                 style={{ width: '80%', height: '85%', overflow: 'auto', backgroundColor: '#fbfced' }}
                             >
                                 <div style={{ display: 'flex', alignContent: 'center', flexDirection: 'column' }}  >
-                                    <div style={{ display: 'flex', alignSelf: 'center' }}>       <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 22, }}> Try this..! There are some rewards  <p style={{ color: '#FFD700' }}> $ </p>   </p> </div>
+                                    <div style={{ display: 'flex', alignSelf: 'center' }}>       <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 22, }}> Try this..! There are some rewards  <p style={{ color: '#FFD700',textAlign:'center' }}> $ </p>   </p> </div>
 
                                     <div style={{ alignSelf: 'center', backgroundColor: '#F7F7F7' }}>
                                         <Puzzle
@@ -43,7 +43,7 @@ class CompanyNews extends Component {
                             >
                                 <div
                                 >
-                                    <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 28 }}>Mendix-ABSYZ partnership </p>
+                                    <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 28 ,textAlign:'center'}}>Mendix-ABSYZ partnership </p>
                                     <p
                                         style={{ alignSelf: 'center', marginLeft: '10%', justifySelf: 'center', paddingTop: '3%', width: '80%', display: 'flex', textAlign: 'justify' }}
                                     >  ABSYZ has entered into a partnership with Mendix which is an American Low-Code Software Platform Company that provides tools to build, test, deploy and iterate applications. The Company was founded in 2005 and was acquired by Siemens in 2018 and presently operates as an independent subsidiary.</p>
@@ -79,8 +79,6 @@ class CompanyNews extends Component {
                                     <p
                                         style={{ alignSelf: 'center', marginLeft: '10%', justifySelf: 'center', paddingTop: '3%', width: '80%', display: 'flex', textAlign: 'justify' }}
                                     >  ABSYZ has entered into a partnership with Mendix which is an American Low-Code Software Platform Company that provides tools to build, test, deploy and iterate applications. The Company was founded in 2005 and was acquired by Siemens in 2018 and presently operates as an independent subsidiary.</p>
-
-
                                 </div>
                             </Card>
                         </div>

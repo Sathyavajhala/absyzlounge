@@ -13,6 +13,8 @@ import Group1 from '../Group1.png'
 import Group3 from '../Group3.png'
 import Collapse from '@mui/material/Collapse';
 import Group2 from '../Group2.png'
+import AppBarQuestionView from "./AppBar"
+import AppBarResultsView from "./AppBar"
 import Background from '../background.png'
 import Alert from '@mui/material/Alert';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
@@ -21,6 +23,7 @@ import { Component } from 'react';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded'; import * as React from 'react';
 import PropTypes from 'prop-types';
+import myLogo from "../myLogo.png"
 import AppBar from '@mui/material/AppBar';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -31,7 +34,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from "@material-ui/core/Button"
-import myLogo from "../myLogo.png"
 import WeeklyZine from './weeklyZine';
 import NewsLetter from './newsLetter';
 import CompanyNews from './CompanyNews';
@@ -71,7 +73,6 @@ class App extends Component {
             mobiledrawer: false,
             myQuestionView: false
         }
-        this.handleDrawer = this.handleDrawer.bind(this)
     }
 
 
@@ -239,10 +240,8 @@ class App extends Component {
             this.setState({ begin: false, results: true })
         }
         else {
-            this.setState({begin:true})
+            this.setState({ begin: true })
         }
-
-
     }
     newsLetter() {
         this.setState({ newsLetters: true, mobiledrawer: false, weeklyZine: false, myQuestionView: false, begin: false, results: false, myCompanyNews: false })
@@ -289,94 +288,22 @@ class App extends Component {
     WeeklyZine() {
         this.setState({ weeklyZine: true, mobiledrawer: false, newsLetters: false, myQuestionView: false, begin: false, results: false, myCompanyNews: false })
     }
-
-    handleDrawer() {
-        this.setState({ mobiledrawer: !this.state.mobiledrawer })
-    }
-
     render() {
         console.log(this.state.engagementRatio, 'your payload result')
         const container = window !== undefined ? () => window().document.body : undefined;
 
         return (
             <div >
-                {this.state.myQuestionView ?
+                {this.state.myQuestionView || this.state.results ?
                     <div>
-                        {this.props.windowWidth > 770 ?
-                            <div
-                                style={{
-                                    width: '100%', position: 'fixed', top: 0, zIndex: 1, height: '9.5%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center'
-                                }}
-                            >
-                                <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '18%' }} >Employee Engagement Trivia </p>
-                            </div>
-                            :
-                            <div>
-                                 <AppBar position="static"
-                                    style={{ backgroundColor: '#283741', }}
-                                    sx={{ alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
-                                // className=' questionsAppBarSx'
-                                >
-                                    <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
-                                        <IconButton
-                                            onClick={this.handleDrawer}
-                                            edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                                            <MenuIcon style={{ color: 'white' }} />
-                                        </IconButton>
-                                    </Toolbar>
-                                    <img src={myLogo} alt="Absyz.logo" width="80" height="40" style={{ alignSelf: 'center', marginBottom: '2%' }} />
-
-                                </AppBar>
-                                <div
-                                    style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
-                                >
-                                    <p
-                                        style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}
-                                    >ABSYZ Lounge Trivia </p>
-                                </div>
-                            </div>
-                        }
+                        <AppBarQuestionView />
                     </div>
                     : null}
-                {this.state.results ?
+                {/* {this.state.results ?
                     <div>
-                        {this.props.windowWidth > 770 ?
-                            <div
-                                style={{ width: '100%', height: '9.5%', position: 'fixed', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
-                            >
-                                <p
-                                    style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}
-                                >ABSYZ Lounge Trivia Results</p>
-                            </div>
-                            :
-                            <div>
-                                <AppBar position="static"
-                                    style={{ backgroundColor: '#283741', }}
-                                    sx={{ alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
-                                // className=' questionsAppBarSx'
-                                >
-                                    <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
-                                        <IconButton
-                                            onClick={this.handleDrawer}
-                                            edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                                            <MenuIcon style={{ color: 'white' }} />
-                                        </IconButton>
-                                    </Toolbar>
-                                    <img src={myLogo} alt="Absyz.logo" width="80" height="40" style={{ alignSelf: 'center', marginBottom: '2%' }} />
-
-                                </AppBar>
-                                <div
-                                    style={{ width: '100%', height: '100%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}
-
-                                    className='resultsMainDivMobile' >
-                                    <p
-                                        style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', }}
-                                    >ABSYZ Lounge Trivia Results</p>
-                                </div>
-                            </div>
-                        }
+                        <AppBarResultsView />
                     </div>
-                    : null}
+                    : null} */}
                 {this.props.windowWidth < 770 ?
                     <div>
                         {this.state.myQuestionView || this.state.results ? null :
@@ -384,7 +311,6 @@ class App extends Component {
                                 <AppBar position="static"
                                     style={{ backgroundColor: '#283741', }}
                                     sx={{ alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }}
-                                // className=' questionsAppBarSx'
                                 >
                                     <Toolbar variant="dense" sx={{ position: 'absolute', left: 0 }} >
                                         <IconButton
@@ -522,7 +448,7 @@ class App extends Component {
                         <div>
                             {this.props.windowWidth < 770 ?
                                 <Collapse in={this.state.openAlert}
-                                    style={{ width: '80%', display: 'flex', alignSelf: 'center', marginTop: '5%',marginLeft:'10%' }}
+                                    style={{ width: '80%', display: 'flex', alignSelf: 'center', marginTop: '5%', marginLeft: '10%' }}
                                 >
                                     <Alert
                                         variant='outlined'
@@ -568,11 +494,8 @@ class App extends Component {
                     {this.state.begin ?
                         <div>
                             {this.props.windowWidth < 770 ?
-
-
                                 <div >
-
-                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 40, fontWeight: 'bold', color: '#1D7B84', paddingTop: '20%',textAlign:'center' }} >LET'S BEGIN</p>
+                                    <p style={{ fontFamily: 'Source Sans Pro', fontSize: 40, fontWeight: 'bold', color: '#1D7B84', paddingTop: '20%', textAlign: 'center' }} >LET'S BEGIN</p>
                                     <img src={Background} style={{ alignSelf: 'center', }} width={'100%'} height={'100%'} />
                                     <img className="position-absolute top-50 start-50 translate-middle  " src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'85%'} height={'25%'} />
                                     <Button variant='contained' style={{ width: '80%', position: 'absolute', backgroundColor: '#1D7B84', display: 'flex', color: 'white', bottom: '8%', left: '10%' }}
@@ -592,7 +515,6 @@ class App extends Component {
                                     <div
                                         style={{ display: 'flex', backgroundImage: `url(${Group2})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', justifyContent: 'center', flexDirection: 'column', width: '100%', paddingLeft: '12%' }}
                                         className="position-absolute top-50 start-50 translate-middle  " >
-
                                         <p style={{ fontFamily: 'Source Sans Pro', fontSize: 70, marginTop: '3%', fontWeight: 'bold', color: '#1D7B84', marginLeft: '30%' }} >LET'S BEGIN</p>
                                         <img src={Group1} style={{ alignSelf: 'center', display: 'flex', }} width={'40%'} height={'15%'} />
                                         <Button variant='contained' style={{ width: '15%', backgroundColor: '#1D7B84', display: 'flex', marginTop: '15%', justifySelf: 'center', alignSelf: 'center', color: 'white', left: 25 }}
@@ -674,7 +596,6 @@ class App extends Component {
                                                             {this.state.question.Option[0][keyName] ? <p style={{ alignSelf: 'center', paddingTop: '1%', paddingLeft: '2%', color: this.state.activeDiv === keyName ? 'white' : 'black' }} >{this.state.question.Option[0][keyName]} </p> : <p style={{ alignSelf: 'center', paddingTop: '1%', paddingLeft: '2%' }} >None </p>}
                                                         </div>
                                                     )}
-
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'row', }}>
                                                     <Button variant='contained' style={{ width: '15%', backgroundColor: '#1D7B84', marginTop: '5%', display: 'flex', marginLeft: '30%', color: 'white' }}
@@ -697,7 +618,7 @@ class App extends Component {
                                     }}
                                 >
                                     <img src={Group3} style={{ alignSelf: 'center', marginRight: '1%', marginTop: '3%' }} width={'70%'} height={'70%'} />
-                                    <span style={{ fontFamily: 'Source Sans Pro', marginTop: '-1%', fontSize: 25, textAlign:'center'}}> Response Submitted, Thanks. </span>
+                                    <span style={{ fontFamily: 'Source Sans Pro', marginTop: '-1%', fontSize: 25, textAlign: 'center' }}> Response Submitted, Thanks. </span>
                                     <PieChart
                                         labelStyle={{
                                             fontSize: "10px",
@@ -793,6 +714,7 @@ class App extends Component {
                             }
                         </div> : null}
                 </Box>
+
             </div >
         )
     }
@@ -807,6 +729,45 @@ App.propTypes = {
     window: PropTypes.func,
 };
 export default windowSize(App);
+
+const myStyles = {
+    // { width: '100%', height: '100%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }
+    // { alignContent: 'center', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', width: '100%' }
+    // { fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', paddingTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }
+    // { width: '100%', height: '9.5%', position: 'fixed', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }
+    desktopAppBarDiv: {
+        width: '100%',
+        position: 'fixed',
+        top: 0,
+        zIndex: 1,
+        height: '9.5%',
+        backgroundColor: '#fff',
+        display: 'flex',
+        justifySelf: 'center',
+        justifyContent: 'center'
+    },
+    desktopAppBarText  : { 
+        fontSize: 22,
+         fontFamily: 'Source Sans Pro',
+          fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '18%' },
+         mobileAppBarSx:{
+              alignContent: 'center',
+              display: 'flex',
+               alignItems: 'center',
+                flexDirection: 'row',
+                 justifyContent: 'center',
+                  width: '100%' },
+        mobileAppBarDiv:{
+             width: '100%',
+              height: 65,
+               backgroundColor: '#fff',
+                display: 'flex', 
+                justifySelf: 'center',
+                 justifyContent: 'center' },
+        mobileAppBarText:{ 
+            fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', },
+        
+}
 
 const classes = makeStyles((theme) => ({
     root: {

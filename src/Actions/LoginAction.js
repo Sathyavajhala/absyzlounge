@@ -2,27 +2,13 @@ import API from "../Api";
 export function loginUser(data) {
     console.log('data login actions',data)
   return dispatch =>
-    // API.loginApi.post(null, data).then(
-    //   result => {
-       
         dispatch({
           type: "LOGIN_SUCCESS",
           data: data
         });
-      // },
-      // err => {
-      //   let errorMsg = "Something Went Wrong";
-      //   if (err && err.error === "invalid_grant") {
-      //     errorMsg = "Username or password is Incorrect";
-      //   }
-      //   dispatch({
-      //     type: "FAILED",
-      //     data: errorMsg
-      //   });
-      // }
-    //);
 }
 export function logout() {
+  console.log("came to logout")
   return {
     type: "LOGOUT",
     data: {}

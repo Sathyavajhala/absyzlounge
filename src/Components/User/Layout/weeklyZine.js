@@ -7,10 +7,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 const api = API.Api;
 var htmlPage = 'Loading..! Weekly Zine';
 class WeeklyZine extends Component {
-    constructor(){
+    constructor() {
         super()
-        this.state={
-            isLoading:true
+        this.state = {
+            isLoading: true
         }
     }
     componentDidMount() {
@@ -25,9 +25,10 @@ class WeeklyZine extends Component {
         }
         fetch(`${api}/employeeportal/getMailChimpHtml`, requestOptions)
             .then((res) => res.json())
-            .then((res) => { this.setState({isLoading:false});
-            htmlPage = res.weeklyZineHtmlData
-            
+            .then((res) => {
+                this.setState({ isLoading: false });
+                htmlPage = res.weeklyZineHtmlData
+
             })
     }
     myWeeklyZineHtmlContent() {
@@ -40,25 +41,25 @@ class WeeklyZine extends Component {
             <div  >
                 {this.props.windowWidth > 770 ?
                     <div>
-     <div style={{ width: '100%', position: 'fixed', height: '9.5%', zIndex: 1000, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center',top:0 }}>
+                        <div style={{ width: '100%', position: 'fixed', height: '9.5%', zIndex: 1000, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center', top: 0 }}>
                             <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}>Weekly Zine  </p>
                         </div>
-                        <div style={{width: '90%', display: 'flex', justifyContent: 'center', marginLeft: '10%', alignSelf: 'center', paddingTop: '5%' }}>
-                          
-                        {this.state.isLoading ? 
-                             <Backdrop
-                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                             open={this.state.isLoading}
-                           >
-                             <CircularProgress color="inherit" />
-                           </Backdrop> 
-                        :
-                            <div  dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
-                            </div>
-                           }
+                        <div style={{ width: '90%', display: 'flex', justifyContent: 'center', marginLeft: '14%', alignSelf: 'center', paddingTop: '5%' }}>
+
+                            {this.state.isLoading ?
+                                <Backdrop
+                                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                    open={this.state.isLoading}
+                                >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>
+                                :
+                                <div dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
+                                </div>
+                            }
                         </div>
 
-                   
+
                     </div>
                     :
                     <div>
@@ -67,18 +68,18 @@ class WeeklyZine extends Component {
                             <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Weekly Zine </p>
                         </div>
 
-                        {this.state.isLoading ? 
-                             <Backdrop
-                             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                             open={this.state.isLoading}
-                           >
-                             <CircularProgress color="inherit" />
-                           </Backdrop> 
-                        :
-                            <div  dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
+                        {this.state.isLoading ?
+                            <Backdrop
+                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                open={this.state.isLoading}
+                            >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>
+                            :
+                            <div dangerouslySetInnerHTML={this.myWeeklyZineHtmlContent()}>
                             </div>
-                           }
-                       
+                        }
+
                     </div>
                 }
             </div>

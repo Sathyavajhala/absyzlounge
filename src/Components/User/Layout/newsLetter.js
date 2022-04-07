@@ -50,10 +50,10 @@ class NewsLetter extends Component {
             <div>
                 {this.props.windowWidth > 770 ?
                     <div>
-                        <div style={{ width: '100%', position: 'fixed', height: '9.5', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: '100%', position: 'fixed', height: '9.5', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center' ,marginTop:'-3%',zIndex:1000}}>
                             <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', marginLeft: '20%' }}>News Letters </p>
                         </div>
-                        <div style={{ width: '90%', display: 'flex', justifyContent: 'center', marginLeft: '10%', alignSelf: 'center', paddingTop: '5%' }}>
+                        <div style={{ width: '90%', display: 'flex', justifyContent: 'center', marginLeft: '14%', alignSelf: 'center', paddingTop: '5%' }}>
                             {this.state.isLoading ?
                                 <Backdrop
                                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -62,13 +62,11 @@ class NewsLetter extends Component {
                                     <CircularProgress color="inherit" />
                                 </Backdrop>
                                 :
-                                <div dangerouslySetInnerHTML={this.myNewsLettersHtmlContent()}>
+                                <div  dangerouslySetInnerHTML={this.myNewsLettersHtmlContent()}>
                                 </div>
                             }
-
                         </div>
                     </div>
-
                     :
                     <div >
                         <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center', marginTop: '10%' }}>
