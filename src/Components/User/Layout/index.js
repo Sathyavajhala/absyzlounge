@@ -17,8 +17,8 @@ import Group1 from '../Group1.png'
 import Group3 from '../Group3.png'
 import Collapse from '@mui/material/Collapse';
 import Group2 from '../Group2.png'
-import AppBarQuestionView from "./Appbar/AppBar"
-import AppBarResultsView from "./Appbar/AppBar"
+// import AppBarQuestionView from "./Appbar/AppBar"
+// import AppBarResultsView from "./Appbar/AppBar"
 import Background from '../background.png'
 import Alert from '@mui/material/Alert';
 import { makeStyles } from '@material-ui/core/styles';
