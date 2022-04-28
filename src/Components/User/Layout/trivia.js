@@ -161,7 +161,7 @@ class Trivia extends Component {
                                     "email": email
                                 })
                             }
-                            fetch('https://absyzlounge-email-services.herokuapp.com/employeeportal/aftertest', myRequestOptions)
+                            fetch('http://absyzlounge-email-services.herokuapp.com/employeeportal/aftertest', myRequestOptions)
                                 .then((res) => res.json())
                                 .then((res) => console.log(res))
                                 .catch((err) => console.log(err))
