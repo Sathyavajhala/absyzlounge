@@ -6,7 +6,6 @@ import 'react-circular-progressbar/dist/styles.css';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import MyDrawer from "./Drawer/index"
 import ListItem from '@material-ui/core/ListItem';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -17,8 +16,7 @@ import Trivia from "./trivia"
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import { makeStyles } from '@material-ui/core/styles';
 import { Component } from 'react';
-import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded'; import * as React from 'react';
+import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import PropTypes from 'prop-types';
 import myLogo from "../myLogo.png"
 import AppBar from '@mui/material/AppBar';
