@@ -29,6 +29,18 @@ import PropTypes from 'prop-types';
 import myLogo from "../myLogo.png"
 import AppBar from '@mui/material/AppBar';
 import Trivia from "./trivia"
+import AppBarQuestionView from "./AppBar"
+import AppBarResultsView from "./AppBar"
+import Background from '../background.png'
+import Alert from '@mui/material/Alert';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+import { makeStyles } from '@material-ui/core/styles';
+import { Component } from 'react';
+import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded'; import * as React from 'react';
+import PropTypes from 'prop-types';
+import myLogo from "../myLogo.png"
+import AppBar from '@mui/material/AppBar';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -275,7 +287,6 @@ class App extends Component {
                     {this.state.trivia ? <Trivia getprops={this.props} /> : null}
                     {this.state.alreadySubmitted ?
                         <div className="position-absolute top-50 start-50 translate-middle  " >  already submitted {this.state.question.message} </div> : null}
-
                 </Box>
 
             </div >
