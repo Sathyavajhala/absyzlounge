@@ -6,6 +6,7 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import myLogo from "../../User/myLogo.png"
+import { NavLink } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -15,9 +16,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems } from '../MenuItems';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {  Route, useHistory } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import AllUsers from "../User"
 import QuestionExcel from "../QuestionExcel";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../Actions/LoginAction'
+import Login from '../Login';
 
 // import store from "../../../../../"
 function Copyright() {
@@ -116,11 +120,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Layout() {
   // const window = useWindowSize()
-  console.log(window.innerWidth,"width")
+  console.log(window.innerWidth, "width")
   const classes = useStyles();
   const history = useHistory();
-  const [logout, setLogout] = useState(false);
-  const [open, setOpen] = React.useState(true);
+  // const [logout, setLogout] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,10 +132,14 @@ export default function Layout() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const logsout = () => {
-    setLogout(true)
-  }
+  // const logsout = () => {
+  //   setLogout(true)
+  // }
 
+  const dispatch = useDispatch()
+
+  const isLoggedIn = useSelector(state => state)
+  console.log({ isLoggedIn })
   return (
     <div className={classes.root} >
       <CssBaseline />
@@ -146,30 +154,21 @@ export default function Layout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography style={{ alignSelf: 'center', color: 'black', fontFamily: 'Source Sans Pro', fontWeight: '500', fontSize: 25 }} component="h1" variant="h6" noWrap className={classes.title}>
+          <Typography style={{ alignSelf: 'center', textAlign: 'center', color: 'black', fontFamily: 'Source Sans Pro', fontWeight: '500', fontSize: 25 }} component="h1" variant="h6" noWrap className={classes.title}>
             Admin
           </Typography>
-
-          <IconButton
-            color="#283741"
-            onClick={logsout}
-          >
-        
-
-            <LogoutIcon
-
-            />
-            {/* </Link> */}
-            {/* <Route exact path='/admin/login' component={SignIn} >
-       
-            </Route> */}
-
-            {/* </Badge> */}
-          </IconButton>
+          <NavLink to={"/admin/login"} exact >
+            <IconButton
+              color="#283741"
+              onClick={() => dispatch(logout())}
+            >
+              <LogoutIcon />
+            </IconButton>
+          </NavLink>
         </Toolbar>
       </AppBar>
       <Drawer
-        variant='permanent' 
+        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
@@ -189,8 +188,6 @@ export default function Layout() {
           </div>
           <Divider />
           <List>{mainListItems}</List>
-          {/* <Divider />
-        <List>{secondaryListItems}</List> */}
         </div>
       </Drawer>
       <main className={classes.content}>
@@ -198,7 +195,6 @@ export default function Layout() {
         {/* <Route path="/admin/login" exact={true} component={SignIn} /> */}
         <Route path="/admin" exact={true} component={AllUsers} />
         <Route path="/admin/addQuestionsExcel" exact={true} component={QuestionExcel} />
-
 
       </main>
     </div>

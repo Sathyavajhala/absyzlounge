@@ -27,7 +27,7 @@ class CompanyNews extends Component {
                                 style={{ width: '80%', height: '85%', overflow: 'auto', backgroundColor: '#fbfced' }}
                             >
                                 <div style={{ display: 'flex', alignContent: 'center', flexDirection: 'column' }}  >
-                                    <div style={{ display: 'flex', alignSelf: 'center' }}>       <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 22, }}> Try this..! There are some rewards  <p style={{ color: '#FFD700' }}> $ </p>   </p> </div>
+                                    <div style={{ display: 'flex', alignSelf: 'center' }}>       <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 22, }}> Try this..! There are some rewards  <p style={{ color: '#FFD700',textAlign:'center' }}> $ </p>   </p> </div>
 
                                     <div style={{ alignSelf: 'center', backgroundColor: '#F7F7F7' }}>
                                         <Puzzle
@@ -43,7 +43,7 @@ class CompanyNews extends Component {
                             >
                                 <div
                                 >
-                                    <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 28 }}>Mendix-ABSYZ partnership </p>
+                                    <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 28 ,textAlign:'center'}}>Mendix-ABSYZ partnership </p>
                                     <p
                                         style={{ alignSelf: 'center', marginLeft: '10%', justifySelf: 'center', paddingTop: '3%', width: '80%', display: 'flex', textAlign: 'justify' }}
                                     >  ABSYZ has entered into a partnership with Mendix which is an American Low-Code Software Platform Company that provides tools to build, test, deploy and iterate applications. The Company was founded in 2005 and was acquired by Siemens in 2018 and presently operates as an independent subsidiary.</p>
@@ -53,7 +53,7 @@ class CompanyNews extends Component {
                     </div>
                     :
                     <div>
-                        <div style={{ width: '100%', height: 65, backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center', marginTop: '12%' }}>
+                        <div style={{ width: '100%', height: '7%', backgroundColor: '#fff', display: 'flex', justifySelf: 'center', justifyContent: 'center', paddingTop:'13%',marginBottom:'5%' }}>
 
                             <p style={{ fontSize: 22, fontFamily: 'Source Sans Pro', fontWeight: '600', color: '#33494E', marginTop: '1%', alignSelf: 'center', display: 'flex', }}>Company News </p>
                         </div>
@@ -64,10 +64,16 @@ class CompanyNews extends Component {
                             <Card
                                 style={{ width: '100%', height: '75%', overflow: 'auto' }}
                             >
-                                <div
-                                >
-                                    <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 28 }}>Happy 10th Anniversary ABSYZ </p>
-                                    <p style={{ alignSelf: 'center', marginLeft: '10%', justifySelf: 'center', paddingTop: '3%', width: '80%', display: 'flex', textAlign: 'justify' }}>On 18th August 2021, we completed ten years of ABSYZ. All anniversaries are unique as we realize that we have overcome endless challenges and our commitment to the customers prevails. The tenth anniversary is a magical moment to rejoice, and the special memories bestow great happiness added with enthusiasm to go ahead and achieve further heights and glory.  </p>
+                              <div style={{ display: 'flex', alignContent: 'center', flexDirection: 'column' }}  >
+                                    <div style={{ display: 'flex', alignSelf: 'center' }}>       <p style={{ justifyContent: 'left', paddingTop: '3%', color: '#184765', fontSize: 22, }}> Try this..! There are some rewards  <p style={{ color: '#FFD700',textAlign:'center' }}> $ </p>   </p> </div>
+
+                                    <div style={{ alignSelf: 'center', backgroundColor: '#F7F7F7' }}>
+                                        <Puzzle
+                                            image={zine3}
+                                            size={200}
+                                            onDone={() => alert('Yay..its done')}
+                                        />
+                                    </div>
                                 </div>
                             </Card>
                             <Card
@@ -79,8 +85,6 @@ class CompanyNews extends Component {
                                     <p
                                         style={{ alignSelf: 'center', marginLeft: '10%', justifySelf: 'center', paddingTop: '3%', width: '80%', display: 'flex', textAlign: 'justify' }}
                                     >  ABSYZ has entered into a partnership with Mendix which is an American Low-Code Software Platform Company that provides tools to build, test, deploy and iterate applications. The Company was founded in 2005 and was acquired by Siemens in 2018 and presently operates as an independent subsidiary.</p>
-
-
                                 </div>
                             </Card>
                         </div>

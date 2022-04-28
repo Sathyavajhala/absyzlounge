@@ -2,10 +2,6 @@
   "name": "cedashboard",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "16.x",
-    "npm": "8.x"
-  },
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
@@ -25,9 +21,11 @@
     "dangerously-set-html-content": "^1.0.9",
     "dotenv": "^14.3.0",
     "express": "^4.17.2",
+    "html-react-parser": "^1.4.8",
     "html-to-react": "^1.4.7",
     "http-proxy-middleware": "^2.0.2",
     "jest-axe": "^5.0.1",
+    "jigsaw-puzzle": "^1.0.5",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "raw-html-react": "^1.2.3",
@@ -44,7 +42,7 @@
     "react-icons": "^4.2.0",
     "react-image-puzzle": "^0.1.1",
     "react-minimal-pie-chart": "^8.2.0",
-    "react-moment": "^1.1.1",
+    "react-moment": "^1.1.2",
     "react-phone-number-input": "^3.1.27",
     "react-redux": "^7.2.4",
     "react-render-html": "^0.6.0",
@@ -60,12 +58,10 @@
     "xlsx": "^0.17.1"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "node server/server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

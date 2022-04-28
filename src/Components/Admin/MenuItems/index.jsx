@@ -15,22 +15,8 @@ import { NavLink } from 'react-router-dom';
 
 export const mainListItems = (
   <div >
-
-{/* <NavLink to={"/admin"} exact key={"dashboard"} activeStyle={{
-      fontWeight: "bold",
-      color: "red"
-    }}>
-    <ListItem button exact activeClassName={{ backgroundColor: 'rgba(255, 255, 255, 0.12)' }}>
-      <ListItemIcon >
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    </NavLink> */}
-
     <NavLink to={"/admin"} exact key={"canditates"} activeStyle={{
       fontWeight: "bold",
-      // color: "red"
     }}>
       <ListItem button exact style={{}} >
         <ListItemIcon>

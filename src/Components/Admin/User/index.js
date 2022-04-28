@@ -2,9 +2,14 @@ import { Container, Paper, Button, Dialog, DialogActions, DialogContentText, Dia
 import { DataGrid, } from "@material-ui/data-grid";
 import Snackbar from '@mui/material/Snackbar'
 import Add from "@material-ui/icons/Add"
-
+import Skeleton from '@mui/material/Skeleton';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import { Component } from "react";
 import MenuItem from '@mui/material/MenuItem';
+import ShareIcon from '@mui/icons-material/Share';
+import ClearIcon from '@mui/icons-material/Clear';
+import Moment from "react-moment"
+import EditIcon from '@mui/icons-material/Edit';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import API from '../../../Api/index.js'
@@ -25,6 +30,7 @@ import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import CircularProgress from "@mui/material/CircularProgress"
+import { method } from "lodash";
 const rows = [
   { id: 1, employeeName: 'surya', designation: 'Senior Software Engineer', age: 27, isactive: true },
   { id: 2, employeeName: 'kesav', designation: 'Senior Software Engineer', age: 28, isactive: true },
@@ -68,6 +74,7 @@ export default class AllUsers extends Component {
       showErrorMessage: false,
       categoryData: {},
       selectOrDelete: true,
+      setSkeleton: false,
       category: '',
       backdrop: false,
       popUpUsername: '',
@@ -95,16 +102,40 @@ export default class AllUsers extends Component {
         { field: 'testname', headerName: 'Test Name', width: 150 },
         { field: 'score', headerName: 'Score', width: 115 },
         { field: 'total', headerName: 'Total', width: 120 },
-        { field: 'submittedDate', headerName: 'Completed on', width: 165 },
-        { field: 'updatedDate', headerName: 'Sent On', width: 130 },
+        { field: 'submittedDate', 
+        headerName: 'Completed on',
+         width: 165,
+         renderCell: (params) => {
+          let mySubmissionDate = params.row.submittedDate;
+          console.log(params,"submission date")
+          if(mySubmissionDate == undefined){
+            return("Not yet Answered")
+          }else{
+          return (mySubmissionDate.slice(0, 10))
+          }
+        }
       
+      },
+        { field: 'updatedDate',
+         headerName: 'Sent On',
+          width: 130,
+          renderCell: (params) => {
+            let myUpdatedDate = params.row.updatedDate;
+            if(myUpdatedDate == undefined){
+              return("N/A")
+            }else{
+            return (myUpdatedDate.slice(0, 10))
+            }
+          }
+        },
+
       ],
       columns: [
-        { field: 'id', headerName: 'ID', width: 95 },
+        { field: 'id', headerName: 'ID', width: 93 },
         {
           field: 'username',
           headerName: 'Employee name',
-          width: 180,
+          width: 150,
           editable: true,
 
           renderCell: (params) => {
@@ -112,14 +143,14 @@ export default class AllUsers extends Component {
               this.setState({ notYetAnswered: true })
             }
             // console.log(params, "params onclick")
-            return <Button onClick={() => this.showTemplate(params.row)} > {params.row.username}   </Button>
+            return <Button style={{textAlign:'left',alignSelf:'left'}} onClick={() => this.showTemplate(params.row)} > {params.row.username}   </Button>
 
           }
         },
         {
           field: 'desc',
           headerName: 'Designation',
-          width: 160,
+          width: 155,
           editable: true,
         },
         {
@@ -127,14 +158,21 @@ export default class AllUsers extends Component {
           headerName: 'Email',
           // type: 'number',
           width: 220,
-          editable: true,
+          editable: false,
+          // flex:1
         },
         {
-          field: 'maxQuest',
-          headerName: 'Max Questions',
-          // type: 'number',
-          width: 150,
-          editable: true,
+          field: 'LinkShare',
+          headerName: 'Notify',
+          width: 130,
+          disableClickEventBubbling: true,
+          renderCell: (params) => {
+
+            return <Button color="primary" onClick={() => this.linkToShare(params)}
+              size="small">
+              LinkShare
+            </Button>;
+          }
         },
 
         {
@@ -159,11 +197,20 @@ export default class AllUsers extends Component {
           }
         },
         {
+          field: 'maxQuest',
+          headerName: 'MaxQuestions',
+          width: 150,
+          editable: true,
+        },
+        {
           field: 'doj',
-          headerName: 'Date of Joining',
-          // type: 'number',
-          width: 160,
+          headerName: 'DOJ',
+          width: 110,
           editable: false,
+          renderCell: (params) => {
+            let myDoj = params.row.doj;
+            return (myDoj.slice(0, 10))
+          }
         },
         {
           field: 'phone',
@@ -171,55 +218,6 @@ export default class AllUsers extends Component {
           width: 135,
           editable: 'true'
         },
-        {
-          field: 'LinkShare',
-          headerName: 'Notify',
-          width: 140,
-          disableClickEventBubbling: true,
-          renderCell: (params) => {
-
-            return <Button color="primary" onClick={() => this.linkToShare(params)}
-              size="small">
-              <p>LinkShare</p>
-            </Button>;
-          }
-        },
-        // {
-        //   field: 'Edit',
-        //   headerName: 'Update',
-        //   width: 140,
-        //   disableClickEventBubbling: true,
-        //   renderCell: (params) => {
-
-        //     return <Button  color="primary"
-        //       size="small">
-        //       <p>Edit</p>
-        //     </Button>;
-        //   }
-        // },
-        // {
-        //   field: 'action',
-        //   headerName: 'Action',
-        //   width: 120,
-        //   disableClickEventBubbling: true,
-        //   renderCell: (params) => {
-        //     const myId = params.row
-
-        //     const onClick = (row) => {
-        //       console.log(row.target, "rowww")
-        //       const rows = [...this.state.data];
-        //       const index = this.state.data.findIndex((item) => item.id === this.state.currentRow.id)
-        //       console.log(index, "my index")
-        //       rows.splice(index, 1)
-        //       this.setState({ data: rows });
-        //     };
-        //     return <Button id={this.state.currentRow.id} onClick={onClick} value={myId} color="black"
-        //       size="small"
-        //       aria-label="delete" >
-        //       <DeleteIcon fontSize="small" />
-        //     </Button>;
-        //   }
-        // },
 
       ]
 
@@ -229,6 +227,7 @@ export default class AllUsers extends Component {
 
 
   candidatesResults(name, username) {
+    this.setState({ setSkeleton: true })
     const requestOptions = {
       method: "GET",
       headers: {
@@ -236,15 +235,13 @@ export default class AllUsers extends Component {
         token: 'qwerty', 'Content-Type': 'application/json'
       },
     }
+
     fetch(`${api}/employeeportal/getresults`, requestOptions).then((res) => res.json())
       .then((res) => {
-
-        this.setState({ newPopupRows: res.payload });
-
+        this.setState({ newPopupRows: res.payload, setSkeleton: false });
         console.log('candidate results', this.state.newPopupRows)
       })
       .catch((err) => console.log("err", err))
-
   }
 
   AllCategories() {
@@ -283,8 +280,7 @@ export default class AllUsers extends Component {
   }
 
   componentDidMount() {
-
-    console.log(API,'my url')
+    console.log(API, 'my url')
     this.fetchAllUsers();
     this.fetchAxios();
     this.AllCategories();
@@ -303,7 +299,7 @@ export default class AllUsers extends Component {
       /[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
         .test(this.state.emailID)
     if (this.state.employeeUserName == "" || this.state.employeeUserName == null || this.state.employeeUserName.length < 3) {
-      this.setState({ showErrorMessage: true})
+      this.setState({ showErrorMessage: true })
 
     } else if (this.state.employeeLastName == "" || this.state.employeeLastName == null) {
       this.setState({ showErrorMessage: true })
@@ -321,7 +317,7 @@ export default class AllUsers extends Component {
       this.setState({ showErrorMessage: true })
     }
     else if (emailRegex == false) {
-      alert("Please provide valid Email of User ")
+      alert("Please provide valid Email of User")
     }
     else {
       const requestOptions = {
@@ -331,28 +327,37 @@ export default class AllUsers extends Component {
           "username": this.state.employeeUserName,
           "firstname": this.state.employeeUserName,
           "lastname": this.state.employeeLastName,
-          //"maxQuestion": this.state.maxQuestion,
           "designation": this.state.role,
           "email": this.state.emailID,
           "phone": this.state.phoneNumber,
-          // "category": this.state.addUserCategory,
           "doj": this.state.empDOJ,
           "maxQuestion": this.state.maxQuestions,
           "status": "true"
         })
       };
       console.log(requestOptions, "this console")
-      fetch( `${api}/employeeportal/notifyuser`, requestOptions)
+      fetch(`${api}/employeeportal/notifyuser`, requestOptions)
         .then(response => response.json())
         .then(data => {
+          const newRequestOptions ={
+            method:'POST',
+            headers:{'Content-Type': 'application/json',},
+            body:JSON.stringify({
+              "username":this.state.employeeUserName,
+              "email":this.state.emailID,
+              "designation":this.state.role
+            })
+          }
+          fetch('https://absyzlounge-email-services.herokuapp.com/oncreate',newRequestOptions)
+          .then(res=> res.json())
+          .then((res)=> console.log(res,"posted data"))
           this.fetchAllUsers();
-          console.log(data.message,data.statusCode, "my  payload data")
+          console.log(data.message, data.statusCode, "my  payload data")
           this.handleBackdrop();
-          // if(data.message)
         }
         );
-      this.clearALl();
       this.setState({ backdrop: true, showaddRow: false })
+     
     }
   }
 
@@ -386,13 +391,12 @@ export default class AllUsers extends Component {
         "doj": data.row.doj
       })
     };
-    console.log(requestOptions, "this data") 
+    console.log(requestOptions, "this data")
 
-    fetch( `${api}/employeeportal/notifyuser`, requestOptions)
+    fetch(`${api}/employeeportal/notifyuser`, requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log(res, "this response");
-
         if (res.statusCode == 200) {
           alert("Successfully shared the link")
         }
@@ -430,12 +434,10 @@ export default class AllUsers extends Component {
   handlePhone = (data) => {
     this.setState({ phoneNumber: data.target.value })
   }
-  handleAge = (data) => {
-    this.setState({ age: data.target.value })
-  }
-  handleDOB = (data) => {
-    console.log(data, "dob data")
+  handleDOJ = (data) => {
+    console.log(data, "doj data")
     this.setState({ empDOJ: data })
+
   }
   myrowDelete = () => {
     const rows = [...this.state.data];
@@ -450,7 +452,6 @@ export default class AllUsers extends Component {
       })
     })
     console.log("indexxxxx", rows)
-    // rows.splice(index)
     this.setState({ data: rows });
     this.setState({
       showSelection: !this.state.showSelection,
@@ -498,37 +499,37 @@ export default class AllUsers extends Component {
       headers: { token: "qwerty", 'Content-Type': 'application/json' }
     };
 
-    fetch( `${api}/employeeportal/allusers`, requestOptions).then(res => res.json()).then(res => {
+    fetch(`${api}/employeeportal/allusers`, requestOptions).then(res => res.json()).then(res => {
+      this.clearALl();
       console.log(res.payload, 'this is main response Payload ')
       const myPayload = res.payload;
       myPayload.shift();
       myPayload.map(ele => { return ele['id'] = ele.userpk, ele['maxQuest'] = this.state.maxQuestions, ele['category'] = '' })
       this.setState({ rowsSelectedData: myPayload })
-      // thi.setState({})
       this.addRow(res)
-    }).catch((error) => { console.log(error); this.setState({ error }) })
+    }).catch((error) => { console.log(error); this.setState({ error });this.clearALl() })
   }
 
   handleEditRowsModelChange = (event) => {
     console.log(event, "main data")
     this.setState({ editRowsModel: event })
-    
+
   }
 
   showTemplate(name) {
-    this.setState({ popUpUsername: name.username })
+    this.setState({ popUpUsername: name.username, })
     console.log(this.state.popUpUsername, "my pop daata")
     this.candidatesResults(name.username);
-    this.setState({ myCandidateTemplate: true, myCandidateName: name })
+    this.setState({ myCandidateTemplate: true, myCandidateName: name, })
   }
-  showingAddRow(){
-    this.setState({ showaddRow: !this.state.showaddRow,showErrorMessage:false })
+  showingAddRow() {
+    this.setState({ showaddRow: !this.state.showaddRow, showErrorMessage: false })
 
   }
   render() {
     var today = new Date();
-var date = today.getDate() +'/'+(today.getMonth()+1)+'/'+ today.getFullYear();
-console.log(date,"today date")
+    var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+    // console.log(date, "today date")
     return (
       <div>
         <Container>
@@ -547,17 +548,18 @@ console.log(date,"today date")
               </DialogActions>
             </Dialog>
           )}
-          <div style={{ display: 'flex', flexDirection: 'row', width: '23%', marginBottom: '3%', backgroundColor: 'inherit', marginTop: '3%', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', width: '23%',  backgroundColor: 'inherit', marginTop: '1.5%', justifyContent: 'space-between' }}>
             {/* <IconButton variant="contained" style={{  height: "3%", backgroundColor: "white",  }} onClick={() => this.setState({ showDialog: true })} disabled={!this.state.currentRow} >
             < EditIcon  color='white'/>
              </IconButton> */}
             {/* {this.state.selectOrDelete ? <IconButton variant="contained" style={{backgroundColor:'white' }} onClick={() => this.setState({ showSelection: !this.state.showSelection, selectOrDelete: !this.state.selectOrDelete })} color="primary">
            <PlaylistAddCheckIcon/></IconButton> : <IconButton variant="contained" style={{ backgroundColor:'white'}} onClick={() => this.setState({showSelection: !this.state.showSelection, selectOrDelete: !this.state.selectOrDelete})} >         <ClearIcon/>  </IconButton>}
             {this.state.selectOrDelete ? null: <IconButton variant="contained" style={{ backgroundColor:'white' }} onClick={() => this.uploadQuestions()}>   <ShareIcon  color="white"/>  </IconButton>} */}
-            <IconButton style={{ fontSize: 20, backgroundColor: "white", display: "flex", alignSelf: "flex-end" }} onClick={() => this.showingAddRow()              } color="white">  <Add color='white' />  </IconButton>
+            <IconButton style={{ fontSize: 20, backgroundColor: "#dfe6ed", display: "flex", alignSelf: "flex-end" }} onClick={() => this.showingAddRow()} color="white">  <Add color='white' />  </IconButton>
           </div>
-          <Paper component={Box} width={1} height={600} style={{ marginTop: '3%' }}>
+          <Paper component={Box} width={1} height={700} style={{ marginTop: '1.5%', }}>
             <DataGrid
+              // scrollbarSize={'0'}
               checkboxSelection={this.state.showSelection}
               onSelectionModelChange={this.checkBoxData}
               onCellDoubleClick={() => this.showTemplate}
@@ -565,37 +567,53 @@ console.log(date,"today date")
               onRowSelected={(item) => console.log(item)}
               rows={this.state.rowsSelectedData}
               columns={this.state.columns}
-              // apiRef={useGridApiRef()}
-              // resizable={true}
               disableColumnResize={false}
-              pageSize={15}
+              pageSize={11}
               editRowsModel={this.state.editRowsModel}
               onEditRowsModelChange={this.handleEditRowsModelChange}
             />
-
           </Paper>
           {this.state.myCandidateTemplate ?
             <Dialog open={this.state.myCandidateTemplate} maxWidth='md' fullWidth   >
               <DialogActions>
-                <IconButton variant="outlined" onClick={() => this.setState({ myCandidateTemplate: false })} color="primary">  < HighlightOffIcon sx={{width:35,height:35,color:'#1D7B84' }}/> </IconButton>
+                <IconButton variant="outlined" onClick={() => this.setState({ myCandidateTemplate: false })} color="primary">  < HighlightOffIcon sx={{ width: 35, height: 35, color: '#1D7B84' }} /> </IconButton>
               </DialogActions>
               <DialogContent style={{ paddingBottom: '5%' }}>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <p style={{ flexDirection: 'row', display: 'flex' }}> Candidate Name :- <p style={{ textDecorationLine: 'underline',textTransform:'capitalize' }} > {this.state.popUpUsername} </p> </p>
+                  <p style={{ flexDirection: 'row', display: 'flex' }}> Candidate Name :- <p style={{ textDecorationLine: 'underline', textTransform: 'capitalize' }} > {this.state.popUpUsername} </p> </p>
                   <p style={{ marginLeft: '2%' }}> Point of Contact : Admin  </p>
                 </div>
-                <Paper component={Box} width={1} height={400} >
-                  <DataGrid
-                    columns={this.state.popUpColumns}
-                    getRowId={(r) => r.testname}
-                    rows={this.state.newPopupRows}
-                  />
+                <Paper component={Box} width={1} height={380} >
+                  {this.state.setSkeleton ?
+                    <div style={{
+                      display: 'flex', alignSelf: 'center', flexDirection: 'column', marginLeft: '10%',
+                      paddingTop: '2.5%'
+                    }}>
+                      <div style={{ display: 'flex', flexDirection: 'row' }} >
+                        <Skeleton animation='wave' width={'25%'} height={55} />
+                        <Skeleton animation='wave' width={'25%'} height={55} style={{ marginLeft: '2%' }} />
+                        <Skeleton animation='wave' width={'18%'} height={55} style={{ marginLeft: '2%' }} />
+                        <Skeleton animation='wave' width={'12.5%'} height={55} style={{ marginLeft: '2%' }} />
+                        <br></br>
+                      </div>
+                      <br></br>
+                      <Skeleton animation='wave' width={'87%'} height={55} /> <br></br>
+                      <Skeleton animation='wave' width={'87%'} height={55} />
+                    </div>
+                    :
+                    <DataGrid
+                      columns={this.state.popUpColumns}
+                      getRowId={(r) => r.testname}
+                      rows={this.state.newPopupRows}
+                    />
+                  }
                 </Paper>
               </DialogContent>
             </Dialog>
             : null
           }
           <Backdrop
+            
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={this.state.backdrop}
             // transitionDuration={0}
@@ -604,7 +622,6 @@ console.log(date,"today date")
             <CircularProgress color="inherit" />
           </Backdrop>
           <Dialog open={this.state.showaddRow} maxWidth='sm' fullWidth >
-
             {this.state.showErrorMessage ? <Alert variant='standard' action={
               <IconButton
                 aria-label="close"
@@ -619,7 +636,6 @@ console.log(date,"today date")
             } style={{ zIndex: 1000 }} severity='error'>Please Provide all details</Alert> : null}
             <DialogTitle>
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignSelf: "center", alignItems: "center", alignContent: "center" }}>
-                {/* <a href="https://absyz.com">   <img src={absyz} alt="Logo" style={{ width: 90, height: 50 }} />  </a> */}
                 <h4 style={{ paddingTop: "1%" }}>
                   New  Employee's Record</h4>
               </div>
@@ -637,10 +653,6 @@ console.log(date,"today date")
                 <AlternateEmailIcon sx={{ marginTop: 2.5 }} />
                 <TextField required label=" Mail" style={{ left: 5 }} onChange={this.handleEmail} value={this.state.emailID} fullWidth place Holder="Enter Mail" name="mail" />
               </div>
-              {/* <div style={{ display: 'flex', flexDirection: "row" }} >
-                <DescriptionIcon sx={{ marginTop: 2.5 }} />
-                <TextField required type='number' label="MaxQuestions" style={{ left: 5 }} value={this.state.maxQuestions} fullWidth onChange={this.handleMaxQuestion} place Holder=" Maximum no of Questions" name="maxQuest" />
-              </div> */}
               <div style={{ display: 'flex', flexDirection: "row" }} >
                 <FilterNoneIcon sx={{ marginTop: 2.5 }} />
                 <TextField required label=" Designation" style={{ left: 5 }} onChange={this.handleRole} value={this.state.role} fullWidth place Holder="Enter Designation" name="role" />
@@ -648,11 +660,11 @@ console.log(date,"today date")
               <div style={{ display: 'flex', flexDirection: "row" }} >
                 <PhoneIcon sx={{ marginTop: 2.5 }} />
                 <TextField required label=" Phone" onChange={this.handlePhone}
-                 type='number'
-                   onInput = {(e) =>{
-                    e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,10)
-                }}
-                fullWidth style={{ left: 5 }} inputProps={{ maxLength: 10 }} InputProps={{ startAdornment: <InputAdornment position='start' >+91</InputAdornment> }} value={this.state.phoneNumber} place Holder="Enter Phone" name="phone" />
+                  type='number'
+                  onInput={(e) => {
+                    e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
+                  }}
+                  fullWidth style={{ left: 5 }} inputProps={{ maxLength: 10 }} InputProps={{ startAdornment: <InputAdornment position='start' >+91</InputAdornment> }} value={this.state.phoneNumber} place Holder="Enter Phone" name="phone" />
               </div>
               <div style={{ display: "flex", flexDirection: "row", paddingTop: "1.5%" }}>
                 <CalendarTodayIcon sx={{ marginTop: '3.5%', }} />
@@ -662,7 +674,7 @@ console.log(date,"today date")
                       label="Date of Joining"
                       sx={{ color: 'white' }}
                       openTo={'year'}
-                      onChange={this.handleDOB}
+                      onChange={this.handleDOJ.bind(this)}
                       minDate={new Date("02-29-2011")}
                       value={this.state.empDOJ}
                       renderInput={(params) => <TextField {...params} />}
