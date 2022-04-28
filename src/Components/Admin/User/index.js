@@ -348,7 +348,7 @@ export default class AllUsers extends Component {
               "designation":this.state.role
             })
           }
-          fetch('https://absyzlounge-email-services.herokuapp.com/oncreate',newRequestOptions)
+          fetch('http://absyzlounge-email-services.herokuapp.com/oncreate',newRequestOptions)
           .then(res=> res.json())
           .then((res)=> console.log(res,"posted data"))
           this.fetchAllUsers();
