@@ -75,6 +75,7 @@ export default class AllUsers extends Component {
       categoryData: {},
       selectOrDelete: true,
       setSkeleton: false,
+      mainSkeleton: false,
       category: '',
       backdrop: false,
       popUpUsername: '',
@@ -102,29 +103,31 @@ export default class AllUsers extends Component {
         { field: 'testname', headerName: 'Test Name', width: 150 },
         { field: 'score', headerName: 'Score', width: 115 },
         { field: 'total', headerName: 'Total', width: 120 },
-        { field: 'submittedDate', 
-        headerName: 'Completed on',
-         width: 165,
-         renderCell: (params) => {
-          let mySubmissionDate = params.row.submittedDate;
-          console.log(params,"submission date")
-          if(mySubmissionDate == undefined){
-            return("Not yet Answered")
-          }else{
-          return (mySubmissionDate.slice(0, 10))
+        {
+          field: 'submittedDate',
+          headerName: 'Completed on',
+          width: 165,
+          renderCell: (params) => {
+            let mySubmissionDate = params.row.submittedDate;
+            console.log(params, "submission date")
+            if (mySubmissionDate == undefined) {
+              return ("Not yet Answered")
+            } else {
+              return (mySubmissionDate.slice(0, 10))
+            }
           }
-        }
-      
-      },
-        { field: 'updatedDate',
-         headerName: 'Sent On',
+
+        },
+        {
+          field: 'updatedDate',
+          headerName: 'Sent On',
           width: 130,
           renderCell: (params) => {
             let myUpdatedDate = params.row.updatedDate;
-            if(myUpdatedDate == undefined){
-              return("N/A")
-            }else{
-            return (myUpdatedDate.slice(0, 10))
+            if (myUpdatedDate == undefined) {
+              return ("N/A")
+            } else {
+              return (myUpdatedDate.slice(0, 10))
             }
           }
         },
@@ -143,7 +146,7 @@ export default class AllUsers extends Component {
               this.setState({ notYetAnswered: true })
             }
             // console.log(params, "params onclick")
-            return <Button style={{textAlign:'left',alignSelf:'left'}} onClick={() => this.showTemplate(params.row)} > {params.row.username}   </Button>
+            return <Button style={{ textAlign: 'left', alignSelf: 'left' }} onClick={() => this.showTemplate(params.row)} > {params.row.username}   </Button>
 
           }
         },
@@ -339,25 +342,25 @@ export default class AllUsers extends Component {
       fetch(`${api}/employeeportal/notifyuser`, requestOptions)
         .then(response => response.json())
         .then(data => {
-          const newRequestOptions ={
-            method:'POST',
-            headers:{'Content-Type': 'application/json',},
-            body:JSON.stringify({
-              "username":this.state.employeeUserName,
-              "email":this.state.emailID,
-              "designation":this.state.role
+          const newRequestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify({
+              "username": this.state.employeeUserName,
+              "email": this.state.emailID,
+              "designation": this.state.role
             })
           }
-          fetch('http://absyzlounge-email-services.herokuapp.com/oncreate',newRequestOptions)
-          .then(res=> res.json())
-          .then((res)=> console.log(res,"posted data"))
+          fetch('http://localhost:5000/oncreate', newRequestOptions)
+            .then(res => res.json())
+            .then((res) => console.log(res, "posted data"))
           this.fetchAllUsers();
           console.log(data.message, data.statusCode, "my  payload data")
           this.handleBackdrop();
         }
         );
       this.setState({ backdrop: true, showaddRow: false })
-     
+
     }
   }
 
@@ -494,6 +497,7 @@ export default class AllUsers extends Component {
   }
 
   fetchAllUsers() {
+    this.setState({ mainSkeleton: true })
     const requestOptions = {
       method: 'GET',
       headers: { token: "qwerty", 'Content-Type': 'application/json' }
@@ -505,9 +509,9 @@ export default class AllUsers extends Component {
       const myPayload = res.payload;
       myPayload.shift();
       myPayload.map(ele => { return ele['id'] = ele.userpk, ele['maxQuest'] = this.state.maxQuestions, ele['category'] = '' })
-      this.setState({ rowsSelectedData: myPayload })
+      this.setState({ rowsSelectedData: myPayload, mainSkeleton: false })
       this.addRow(res)
-    }).catch((error) => { console.log(error); this.setState({ error });this.clearALl() })
+    }).catch((error) => { console.log(error); this.setState({ error }); this.clearALl() })
   }
 
   handleEditRowsModelChange = (event) => {
@@ -548,7 +552,7 @@ export default class AllUsers extends Component {
               </DialogActions>
             </Dialog>
           )}
-          <div style={{ display: 'flex', flexDirection: 'row', width: '23%',  backgroundColor: 'inherit', marginTop: '1.5%', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', width: '23%', backgroundColor: 'inherit', marginTop: '1.5%', justifyContent: 'space-between' }}>
             {/* <IconButton variant="contained" style={{  height: "3%", backgroundColor: "white",  }} onClick={() => this.setState({ showDialog: true })} disabled={!this.state.currentRow} >
             < EditIcon  color='white'/>
              </IconButton> */}
@@ -558,20 +562,44 @@ export default class AllUsers extends Component {
             <IconButton style={{ fontSize: 20, backgroundColor: "#dfe6ed", display: "flex", alignSelf: "flex-end" }} onClick={() => this.showingAddRow()} color="white">  <Add color='white' />  </IconButton>
           </div>
           <Paper component={Box} width={1} height={700} style={{ marginTop: '1.5%', }}>
-            <DataGrid
-              // scrollbarSize={'0'}
-              checkboxSelection={this.state.showSelection}
-              onSelectionModelChange={this.checkBoxData}
-              onCellDoubleClick={() => this.showTemplate}
-              onRowClick={(item) => this.setState({ currentRow: item.row })}
-              onRowSelected={(item) => console.log(item)}
-              rows={this.state.rowsSelectedData}
-              columns={this.state.columns}
-              disableColumnResize={false}
-              pageSize={11}
-              editRowsModel={this.state.editRowsModel}
-              onEditRowsModelChange={this.handleEditRowsModelChange}
-            />
+            {this.state.mainSkeleton ?
+              <div style={{
+                display: 'flex', alignSelf: 'center', flexDirection: 'column', marginLeft: '10%',
+                paddingTop: '2.5%'
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }} >
+                  <Skeleton animation='wave' width={'15%'} height={55} />
+                  <Skeleton animation='wave' width={'20%'} height={55}  style={{ marginLeft: '2%' }}  />
+                  <Skeleton animation='wave' width={'20%'} height={55}    style={{ marginLeft: '2%' }} />
+
+                  <Skeleton animation='wave' width={'10%'} height={55} style={{ marginLeft: '2%' }} />
+                  <Skeleton animation='wave' width={'14%'} height={55} style={{ marginLeft: '2%' }} />
+                  <br></br>
+                </div>
+                <br></br>
+                <Skeleton animation='wave' width={'87%'} height={55} /> <br></br>
+                <Skeleton animation='wave' width={'87%'} height={55} /><br></br>
+                <Skeleton animation='wave' width={'87%'} height={55} /><br></br>
+                <Skeleton animation='wave' width={'87%'} height={55} />
+
+
+              </div>
+              :
+              <DataGrid
+                // scrollbarSize={'0'}
+                checkboxSelection={this.state.showSelection}
+                onSelectionModelChange={this.checkBoxData}
+                onCellDoubleClick={() => this.showTemplate}
+                onRowClick={(item) => this.setState({ currentRow: item.row })}
+                onRowSelected={(item) => console.log(item)}
+                rows={this.state.rowsSelectedData}
+                columns={this.state.columns}
+                disableColumnResize={false}
+                pageSize={11}
+                editRowsModel={this.state.editRowsModel}
+                onEditRowsModelChange={this.handleEditRowsModelChange}
+              />
+            }
           </Paper>
           {this.state.myCandidateTemplate ?
             <Dialog open={this.state.myCandidateTemplate} maxWidth='md' fullWidth   >
@@ -613,7 +641,7 @@ export default class AllUsers extends Component {
             : null
           }
           <Backdrop
-            
+
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={this.state.backdrop}
             // transitionDuration={0}

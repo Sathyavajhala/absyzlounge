@@ -6,25 +6,38 @@ import 'react-circular-progressbar/dist/styles.css';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import MyDrawer from "./Drawer/index"
 import ListItem from '@material-ui/core/ListItem';
+import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
-
-import Trivia from "./trivia"
-import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+import Group1 from '../Group1.png'
+import Group3 from '../Group3.png'
+import Collapse from '@mui/material/Collapse';
+import Group2 from '../Group2.png'
+import AppBarQuestionView from "./Appbar/AppBar"
+import AppBarResultsView from "./Appbar/AppBar"
+import Background from '../background.png'
+import Alert from '@mui/material/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { Component } from 'react';
-import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+// import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import myLogo from "../myLogo.png"
 import AppBar from '@mui/material/AppBar';
+import Trivia from "./trivia"
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import windowSize from 'react-window-size';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Button from "@material-ui/core/Button"
 import WeeklyZine from './weeklyZine';
 import NewsLetter from './newsLetter';
 import CompanyNews from './CompanyNews';
@@ -262,6 +275,7 @@ class App extends Component {
                     {this.state.trivia ? <Trivia getprops={this.props} /> : null}
                     {this.state.alreadySubmitted ?
                         <div className="position-absolute top-50 start-50 translate-middle  " >  already submitted {this.state.question.message} </div> : null}
+
                 </Box>
 
             </div >
