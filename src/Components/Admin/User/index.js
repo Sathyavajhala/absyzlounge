@@ -351,9 +351,9 @@ export default class AllUsers extends Component {
               "designation": this.state.role
             })
           }
-          fetch('http://localhost:5000/oncreate', newRequestOptions)
-            .then(res => res.json())
-            .then((res) => console.log(res, "posted data"))
+          // fetch('http://localhost:5000/oncreate', newRequestOptions)
+          //   .then(res => res.json())
+          //   .then((res) => console.log(res, "posted data"))
           this.fetchAllUsers();
           console.log(data.message, data.statusCode, "my  payload data")
           this.handleBackdrop();
@@ -401,6 +401,10 @@ export default class AllUsers extends Component {
       .then((res) => {
         console.log(res, "this response");
         if (res.statusCode == 200) {
+          // fetch('http://absyzlounge-email-services.herokuapp.com/employeeportal/aftertest', myRequestOptions)
+          // .then((res) => res.json())
+          // .then((res) => console.log(res))
+          // .catch((err) => console.log(err))
           alert("Successfully shared the link")
         }
         else if (res.statusCode == 403) {

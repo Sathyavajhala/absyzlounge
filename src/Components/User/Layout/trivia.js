@@ -161,10 +161,10 @@ class Trivia extends Component {
                                     "email": email
                                 })
                             }
-                            fetch('http://absyzlounge-email-services.herokuapp.com/employeeportal/aftertest', myRequestOptions)
-                                .then((res) => res.json())
-                                .then((res) => console.log(res))
-                                .catch((err) => console.log(err))
+                            // fetch('http://absyzlounge-email-services.herokuapp.com/employeeportal/aftertest', myRequestOptions)
+                            //     .then((res) => res.json())
+                            //     .then((res) => console.log(res))
+                            //     .catch((err) => console.log(err))
                         }
                         this.engagementratio();
                         this.setState({ results: true, question: result, myQuestionView: false, begin: false, })
@@ -502,7 +502,7 @@ class Trivia extends Component {
                                 :
                                 <div
                                     style={{
-                                        display: 'flex', height: '80%', width: '77.75%', marginLeft: '10%', flexDirection: 'column',
+                                        display: 'flex', height: '80%', width: '77.75%', marginLeft: '8%', flexDirection: 'column',
                                         // backgroundImage: `url(${Group2})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',
                                     }}
                                 >
